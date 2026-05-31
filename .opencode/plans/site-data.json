@@ -1,0 +1,188 @@
+{
+  "brand": {
+    "name": "GAIT",
+    "fullName": "Gait Engineering Works",
+    "altName": "Gait Engineers",
+    "founder": "R.C. Ramesh Babu",
+    "phone": "+91-94492-62225",
+    "phoneAlt": "9449262225",
+    "email": "ramesh@gaitcorp.in",
+    "address": "#26A, Muneeswara Layout, 5th Cross, Near SEA College Arch, K.R. Puram, Bangalore - 560036, Karnataka, India",
+    "yearsExperience": "20+",
+    "projectsDelivered": "500+",
+    "onTimeDelivery": "100%",
+    "copyright": "2025 Gait Engineering Works"
+  },
+  "pages": ["/", "/about", "/services", "/gallery", "/contact"],
+  "navLinks": [
+    { "label": "Home", "path": "/" },
+    { "label": "About", "path": "/about" },
+    { "label": "Service", "path": "/services" },
+    { "label": "Gallery", "path": "/gallery" },
+    { "label": "Contact Us", "path": "/contact" }
+  ],
+  "footerLinks": [
+    "About us", "Services", "Gallery", "Contact Us",
+    "Privacy Policy", "Terms and Conditions"
+  ],
+  "social": {
+    "facebook": "#",
+    "twitter": "#",
+    "instagram": "#",
+    "linkedin": "#"
+  },
+  "hero": {
+    "tagline": "Experts in Castings and SPM Solutions",
+    "taglineHighlight1": "Castings",
+    "taglineHighlight2": "SPM",
+    "subtitle": "Delivering High-Quality, Cost-Effective Casting & SPM Solutions with Precision, Professionalism, and a Commitment to Excellence"
+  },
+  "aboutHome": {
+    "label": "About Our Company",
+    "heading": "Driven by Experience, Defined by Precision",
+    "body": "Gait Engineers is led by a professional with over two decades of industry expertise, specializing in castings manufacturing and SPM (Special Purpose Machines) consulting. We provide end-to-end solutions, from feasibility studies to project execution, ensuring quality and efficiency.",
+    "bullets": [
+      "Providing comprehensive end-to-end project execution for maximum efficiency",
+      "Ensuring precision, quality, and timely delivery in every project",
+      "Delivering high-performance die casting and SPM solutions with cutting-edge technology"
+    ],
+    "stats": [
+      { "label": "Years of Expertise", "value": "20+", "icon": "user" },
+      { "label": "Projects Delivered", "value": "500+", "icon": "award" },
+      { "label": "On-Time Delivery", "value": "100%", "icon": "clock" }
+    ]
+  },
+  "servicesGallery": [
+    {
+      "title": "Non-Ferrous Castings",
+      "description": "Precision casting for aluminum, brass, and copper components",
+      "image": "/images/services/service_casting.jpg"
+    },
+    {
+      "title": "Tools, Jigs & Fixtures",
+      "description": "Custom manufacturing aids for precision assembly",
+      "image": "/images/services/service_jigs.jpg"
+    },
+    {
+      "title": "Special Purpose Machines",
+      "description": "Automated solutions for industrial processes",
+      "image": "/images/services/service_spm.jpg"
+    },
+    {
+      "title": "Fabrication & Erection",
+      "description": "Complete structural fabrication and installation",
+      "image": "/images/services/service_fabrication.jpg"
+    },
+    {
+      "title": "Prototype Development",
+      "description": "From concept to pilot production development",
+      "image": "/images/services/service_prototype.jpg"
+    }
+  ],
+  "contactHero": {
+    "heading": "Precision in Every Cast, Excellence in Every Product.",
+    "subtitle": "Partner with us for high-quality die casting solutions",
+    "cta": "Get in Touch"
+  },
+  "testimonials": [
+    {
+      "author": "Devaraj",
+      "designation": "Senior Engineer",
+      "quote": "Gait Engineers exceeded our expectations with their precise and timely delivery. Their expertise in SPM solutions is truly remarkable",
+      "stars": 4
+    },
+    {
+      "author": "Priya Sharma",
+      "designation": "Operations Head",
+      "quote": "Their attention to detail and commitment to quality made our casting project a success. Highly professional and reliable team.",
+      "stars": 5
+    },
+    {
+      "author": "Anil Kumar",
+      "designation": "Senior Project Manager",
+      "quote": "Gait Engineers exceeded our expectations with their precise and timely delivery. Their expertise in SPM solutions is truly remarkable",
+      "stars": 4
+    }
+  ],
+  "aboutPage": {
+    "whoWeAre": {
+      "heading": "Who We Are",
+      "subheading": "Driven by Experience, Defined by Precision",
+      "body": "At Gait Engineers, we specialize in delivering high-quality, cost-effective solutions in non-ferrous castings and Special Purpose Machines (SPM). With over 20 years of expertise, we provide comprehensive services from feasibility studies to project execution, ensuring precision, efficiency, and customer satisfaction."
+    },
+    "founderStory": {
+      "label": "Founder's Story",
+      "heading": "Engineering Excellence, Led by Vision",
+      "body": "R.C. Ramesh Babu, the driving force behind Gait Engineers, brings over 20 years of expertise in castings and SPM solutions. With a deep understanding of manufacturing and a passion for precision, he founded Gait Engineers to deliver reliable, efficient, and innovative solutions. His leadership ensures every project meets the highest standards of quality and professionalism."
+    },
+    "vision": {
+      "label": "Our Vision",
+      "heading": "Shaping the Future of Engineering with Innovation and Precision",
+      "text": "To be a leading provider of innovative, high-quality engineering solutions, setting benchmarks for precision and customer satisfaction in the manufacturing industry."
+    },
+    "mission": {
+      "label": "Our Mission",
+      "heading": "Shaping the Future of Engineering with Innovation and Precision",
+      "bullets": [
+        "To deliver advanced engineering solutions with a focus on quality, efficiency, and innovation.",
+        "To build lasting relationships by understanding and exceeding client expectations.",
+        "To improve and adopt to technologies to provide the best possible solutions."
+      ]
+    },
+    "achievements": [
+      { "title": "Industry Partnerships", "description": "Collaborated with leading industrial, automotive, and aerospace companies, delivering tailored engineering solutions.", "icon": "handshake" },
+      { "title": "Customized Automation", "description": "Designed and developed innovative solutions to improve automation, enhance operational efficiency, optimize processes.", "icon": "wrench" },
+      { "title": "Strict Quality Control", "description": "Adhered to global quality standards, maintaining rigorous quality control throughout the manufacturing cycle.", "icon": "shield" },
+      { "title": "Investment In Innovation", "description": "Continuously invested in R&D, smart manufacturing, and future-ready technologies to stay ahead of industry demands.", "icon": "lightbulb" },
+      { "title": "Cost Effective Solution", "description": "Providing high-quality engineering solutions that optimize resources, reduce operational costs, and deliver maximum value.", "icon": "dollar" },
+      { "title": "Tailored Solution", "description": "Delivering tailored engineering solutions that meet unique client needs, ensuring flexibility, precision, across every project.", "icon": "gear" }
+    ]
+  },
+  "servicesPage": {
+    "categories": [
+      {
+        "name": "Casting Manufacturing",
+        "subcategories": [
+          "Prototype Development",
+          "Pilot Lot Development",
+          "Low-pressure & Gravity Die Casting",
+          "Shell Moulding & Sand Casting"
+        ]
+      },
+      { "name": "Special Purpose Machines" },
+      { "name": "Tools, Jigs & Fixtures" },
+      { "name": "Fabrication, Erection & Commissioning" }
+    ],
+    "prototypeDevelopment": {
+      "heading": "Precision Prototypes, Perfected for Production",
+      "capabilities": [
+        { "title": "Custom Molding & Tooling", "description": "Precision-engineered to match client specifications." },
+        { "title": "Pilot Lot Development", "description": "Small-scale production for testing and validation." },
+        { "title": "Dimensional & Strength Testing", "description": "Ensuring accuracy before mass production." },
+        { "title": "Process Optimization", "description": "Identifying the best manufacturing approach for full-scale rollout." }
+      ]
+    },
+    "castingTypes": {
+      "sandCasting": ["Aluminium", "Brass", "Lead"],
+      "gravityDieCasting": ["Aluminium", "Brass"],
+      "pressureDieCasting": ["Aluminium"]
+    }
+  },
+  "galleryPage": {
+    "heading": "Our Gallery",
+    "subheading": "Crafting Excellence, One Cast at a Time.",
+    "description": "Explore our precision-engineered die-casting solutions in action."
+  },
+  "contactPage": {
+    "label": "Contact Us",
+    "heading": "Partner with Gait Engineering for Excellence in Die Casting!",
+    "description": "Get in touch with us today to discuss your project requirements.",
+    "cta": "Get In Touch"
+  },
+  "assets": {
+    "totalFiles": 33,
+    "svgs": 2,
+    "images": 31,
+    "basePath": "assets/"
+  }
+}

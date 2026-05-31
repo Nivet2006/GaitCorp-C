@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #ed1d24;
+  --primary-dark: #c8161c;
+  --deep-black: #0a0a0a;
+  --rich-dark: #111111;
+  --dark-surface: #1a1a1a;
+  --mid-gray: #2a2a2a;
+  --light-gray: #8a8a8a;
+  --off-white: #f5f0eb;
+  --pure-white: #ffffff;
+  --red-glow: rgba(237, 29, 36, 0.15);
+  --red-subtle: rgba(237, 29, 36, 0.08);
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #ed1d24 #111111;
+  }
+
+  html.cursor-custom {
+    cursor: none;
+  }
+
+  body {
+    @apply bg-dark-bg text-white font-dm antialiased overflow-x-hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #111111;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ed1d24;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative font-dm text-sm text-white transition-colors duration-300 hover:text-primary;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute bottom-0 left-0 h-px w-0 bg-primary transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .section-padding {
+    @apply py-16 lg:py-[120px];
+  }
+
+  .container-gait {
+    @apply mx-auto max-w-7xl px-4 sm:px-8 lg:px-16 xl:px-24;
+  }
+
+  .hero-title {
+    font-family: var(--font-bebas), sans-serif;
+    font-size: clamp(64px, 10vw, 140px);
+    line-height: 0.9;
+  }
+
+  .section-title {
+    font-family: var(--font-bebas), sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+  }
+
+  .clients-mask::before,
+  .clients-mask::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .clients-mask::before {
+    left: 0;
+    background: linear-gradient(to right, #111111 0%, transparent 100%);
+  }
+
+  .clients-mask::after {
+    right: 0;
+    background: linear-gradient(to left, #111111 0%, transparent 100%);
+  }
+}
