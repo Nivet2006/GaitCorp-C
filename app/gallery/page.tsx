@@ -1,20 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import PageHero from "@/components/ui/PageHero";
+import GalleryPageHero from "@/components/gallery/GalleryPageHero";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
+import InnerPageCTA from "@/components/shared/InnerPageCTA";
 import { pageTransition } from "@/lib/animations";
 
 export default function GalleryPage() {
   return (
     <motion.div {...pageTransition}>
-      <PageHero
-        title="OUR GALLERY"
-        breadcrumb="Home / Gallery"
-        subtitle="Crafting Excellence, One Cast at a Time."
-        description="Explore our precision-engineered die-casting solutions in action."
-      />
+      <GalleryPageHero />
       <GalleryGrid />
+      <InnerPageCTA
+        title="SEE YOUR PROJECT IN OUR GALLERY NEXT"
+        buttonText="Start a Conversation"
+      />
     </motion.div>
   );
 }

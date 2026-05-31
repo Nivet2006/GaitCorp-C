@@ -4,20 +4,22 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Phone, Mail, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Home, Info, Wrench, Images, Mail, Menu, X } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+const iconMap: Record<string, typeof Home> = {
+  "/": Home,
+  "/about": Info,
+  "/services": Wrench,
+  "/gallery": Images,
+  "/contact": Mail,
+};
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 80);
-  });
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -28,107 +30,121 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed left-0 right-0 top-10 z-40 transition-all duration-300",
-          scrolled
-            ? "border-b border-dark-border bg-dark-bg/95 backdrop-blur-md"
-            : "bg-transparent"
-        )}
+      {/* Minimal top-left logo only — no corporate header bar */}
+      <Link
+        href="/"
+        className="fixed left-6 top-6 z-50 mix-blend-difference lg:left-10 lg:top-8"
       >
-        <div className="container-gait flex h-20 items-center justify-between">
-          <Link href="/" className="relative z-10 shrink-0">
-            <Image
-              src="/logo.svg"
-              alt="Gait Engineers"
-              width={140}
-              height={50}
-              priority
-            />
-          </Link>
+        <Image src="/logo.svg" alt="GAIT" width={100} height={36} priority />
+      </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navLinks.map((link) => (
+      {/* Floating dock nav — completely unlike gaitcorp.in top menu */}
+      <motion.nav
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 lg:flex"
+      >
+        <div className="flex items-center gap-1 rounded-full border border-white/10 bg-dark-bg/80 px-2 py-2 shadow-[0_8px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+          {navLinks.map((link) => {
+            const Icon = iconMap[link.path] ?? Home;
+            const active = pathname === link.path;
+            return (
               <Link
                 key={link.path}
                 href={link.path}
+                data-cursor-hover
                 className={cn(
-                  "nav-link",
-                  pathname === link.path && "active text-primary"
+                  "group relative flex items-center gap-2 rounded-full px-4 py-2.5 transition-all duration-300",
+                  active ? "bg-primary text-white" : "text-muted hover:text-white"
                 )}
               >
-                {link.label}
+                <Icon size={16} />
+                <span
+                  className={cn(
+                    "max-w-0 overflow-hidden font-mono text-[10px] uppercase tracking-widest transition-all duration-300 group-hover:max-w-[120px]",
+                    active && "max-w-[120px]"
+                  )}
+                >
+                  {link.label}
+                </span>
               </Link>
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-6 lg:flex">
-            <a
-              href="tel:+919449262225"
-              className="flex items-center gap-2 font-mono text-xs text-muted"
-            >
-              <Phone size={14} className="text-primary" />
-              +91 94492 62225
-            </a>
-            <a
-              href="mailto:ramesh@gaitcorp.in"
-              className="flex items-center gap-2 font-mono text-xs text-muted"
-            >
-              <Mail size={14} className="text-primary" />
-              ramesh@gaitcorp.in
-            </a>
-          </div>
-
-          <button
-            type="button"
-            className="relative z-50 text-white lg:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+            );
+          })}
         </div>
-      </header>
+      </motion.nav>
+
+      {/* Mobile trigger */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen(true)}
+        className="fixed right-6 top-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-dark-bg/80 backdrop-blur-md lg:hidden"
+        aria-label="Open menu"
+      >
+        <Menu size={20} />
+      </button>
 
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-dark-bg lg:hidden"
+            initial={{ clipPath: "circle(0% at 100% 0%)" }}
+            animate={{ clipPath: "circle(150% at 100% 0%)" }}
+            exit={{ clipPath: "circle(0% at 100% 0%)" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[60] flex flex-col bg-dark-bg"
           >
+            <button
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              className="absolute right-6 top-6 text-white"
+              aria-label="Close menu"
+            >
+              <X size={28} />
+            </button>
             <motion.nav
               initial="hidden"
               animate="visible"
-              exit="hidden"
               variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.1 } },
+                visible: { transition: { staggerChildren: 0.08, delayChildren: 0.3 } },
               }}
-              className="flex flex-col items-center gap-8"
+              className="flex flex-1 flex-col justify-center px-12"
             >
-              {navLinks.map((link) => (
+              {navLinks.map((link, i) => (
                 <motion.div
                   key={link.path}
                   variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0 },
+                    hidden: { opacity: 0, x: 60 },
+                    visible: { opacity: 1, x: 0 },
                   }}
                 >
                   <Link
                     href={link.path}
                     onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      "font-dm text-2xl text-white",
-                      pathname === link.path && "text-primary"
-                    )}
+                    className="group flex items-baseline gap-4 border-b border-dark-border py-6"
                   >
-                    {link.label}
+                    <span className="font-mono text-xs text-primary">
+                      0{i + 1}
+                    </span>
+                    <span
+                      className={cn(
+                        "font-bebas text-5xl text-white transition-colors group-hover:text-primary",
+                        pathname === link.path && "text-primary"
+                      )}
+                    >
+                      {link.label}
+                    </span>
                   </Link>
                 </motion.div>
               ))}
             </motion.nav>
+            <div className="border-t border-dark-border p-8 font-mono text-xs text-muted">
+              <a href="tel:+919449262225" className="block hover:text-primary">
+                +91 94492 62225
+              </a>
+              <a href="mailto:ramesh@gaitcorp.in" className="mt-2 block hover:text-primary">
+                ramesh@gaitcorp.in
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

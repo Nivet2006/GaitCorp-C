@@ -1,97 +1,123 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import SectionLabel from "@/components/ui/SectionLabel";
-import { slideLeft, slideRight } from "@/lib/animations";
+import { motion, useScroll, useTransform } from "framer-motion";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function VisionMissionSection() {
   return (
     <>
-      <section className="min-h-[600px] bg-dark-bg">
-        <div className="grid min-h-[600px] lg:grid-cols-2">
-          <div className="relative min-h-[400px] lg:min-h-full">
-            <Image
-              src="/images/about/our-vision.jpg"
-              alt="Our Vision"
-              fill
-              className="object-cover parallax-img"
-              sizes="50vw"
-            />
-          </div>
-          <motion.div
-            variants={slideRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex flex-col justify-center p-8 lg:p-16 xl:p-24"
-          >
-            <SectionLabel>Our Vision</SectionLabel>
-            <h2 className="mb-6 font-bebas text-[64px] leading-tight text-white">
-              Shaping the Future of Engineering with Innovation and Precision
-            </h2>
-            <p className="mb-6 max-w-lg font-dm text-base leading-relaxed text-muted">
-              To be a leading provider of innovative, high-quality engineering solutions,
-              setting benchmarks for precision and customer satisfaction in the manufacturing
-              industry.
-            </p>
-            <div className="h-1 w-16 bg-primary" />
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="min-h-[600px] bg-dark-surface">
-        <div className="grid min-h-[600px] lg:grid-cols-2">
-          <motion.div
-            variants={slideLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="order-2 flex flex-col justify-center p-8 lg:order-1 lg:p-16 xl:p-24"
-          >
-            <SectionLabel>Our Mission</SectionLabel>
-            <h2 className="mb-6 font-bebas text-[64px] leading-tight text-white">
-              Shaping the Future of Engineering with Innovation and Precision
-            </h2>
-            <motion.ul
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={{
-                visible: { transition: { staggerChildren: 0.1 } },
-              }}
-              className="space-y-4"
-            >
-              {[
-                "To deliver advanced engineering solutions with a focus on quality, efficiency, and innovation.",
-                "To build lasting relationships by understanding and exceeding client expectations.",
-                "To improve and adopt technologies to provide the best possible solutions.",
-              ].map((item) => (
-                <motion.li
-                  key={item}
-                  variants={{
-                    hidden: { opacity: 0, x: -30 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                  className="flex items-start gap-3 font-dm text-base text-white"
-                >
-                  <span className="text-primary">◆</span>
-                  {item}
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-          <div className="relative order-1 min-h-[400px] lg:order-2 lg:min-h-full">
-            <Image
-              src="/images/about/our-mission.jpg"
-              alt="Our Mission"
-              fill
-              className="object-cover parallax-img"
-              sizes="50vw"
-            />
-          </div>
-        </div>
-      </section>
+      <PinnedPanel
+        label="Vision"
+        index="01"
+        title="SHAPING TOMORROW'S ENGINEERING"
+        body="To be a leading provider of innovative, high-quality engineering solutions, setting benchmarks for precision and customer satisfaction in the manufacturing industry."
+        image="/images/about/our-vision.jpg"
+        imageSide="right"
+      />
+      <PinnedPanel
+        label="Mission"
+        index="02"
+        title="INNOVATION WITH PRECISION"
+        body=""
+        bullets={[
+          "Deliver advanced engineering solutions with focus on quality, efficiency, and innovation.",
+          "Build lasting relationships by exceeding client expectations.",
+          "Adopt future-ready technologies for the best possible outcomes.",
+        ]}
+        image="/images/about/our-mission.jpg"
+        imageSide="left"
+        dark
+      />
     </>
+  );
+}
+
+function PinnedPanel({
+  label,
+  index,
+  title,
+  body,
+  bullets,
+  image,
+  imageSide,
+  dark,
+}: {
+  label: string;
+  index: string;
+  title: string;
+  body: string;
+  bullets?: string[];
+  image: string;
+  imageSide: "left" | "right";
+  dark?: boolean;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+  const textY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  return (
+    <section
+      ref={ref}
+      className={`relative min-h-screen overflow-hidden ${dark ? "bg-dark-surface" : "bg-dark-bg"}`}
+    >
+      <div
+        className={`grid min-h-screen lg:grid-cols-2 ${
+          imageSide === "left" ? "" : ""
+        }`}
+      >
+        <motion.div
+          className={`relative min-h-[50vh] lg:min-h-full ${
+            imageSide === "right" ? "lg:order-2" : ""
+          }`}
+          style={{ scale: imgScale }}
+        >
+          <Image src={image} alt={label} fill className="object-cover" sizes="50vw" />
+          <div className="absolute inset-0 bg-dark-bg/30" />
+        </motion.div>
+
+        <motion.div
+          style={{ y: textY }}
+          className={`flex flex-col justify-center p-8 lg:p-20 xl:p-28 ${
+            imageSide === "right" ? "lg:order-1" : ""
+          }`}
+        >
+          <ScrollReveal direction="up">
+            <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+              {label} · {index}
+            </span>
+            <h2 className="mt-4 font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+              {title}
+            </h2>
+            {body && (
+              <p className="mt-6 max-w-lg font-dm text-lg leading-relaxed text-muted">
+                {body}
+              </p>
+            )}
+            {bullets && (
+              <ul className="mt-8 space-y-4">
+                {bullets.map((b, i) => (
+                  <motion.li
+                    key={b}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="border-l-2 border-primary/40 pl-6 font-dm text-white"
+                  >
+                    {b}
+                  </motion.li>
+                ))}
+              </ul>
+            )}
+          </ScrollReveal>
+        </motion.div>
+      </div>
+    </section>
   );
 }

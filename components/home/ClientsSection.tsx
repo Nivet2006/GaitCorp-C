@@ -1,49 +1,91 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import SectionLabel from "@/components/ui/SectionLabel";
+import { motion, AnimatePresence } from "framer-motion";
 import { clients } from "@/lib/data";
-import "swiper/css";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function ClientsSection() {
-  const allClients = [...clients, ...clients];
+  const [active, setActive] = useState(0);
+  const doubled = [...clients, ...clients];
 
   return (
-    <section className="section-padding bg-dark-surface">
-      <div className="container-gait mb-12 text-center">
-        <SectionLabel className="justify-center">Partnerships</SectionLabel>
-        <h2 className="font-dm text-[clamp(28px,4vw,48px)] font-bold text-white">
-          Trusted by Industry Leaders, Powered by Partnerships
-        </h2>
-      </div>
+    <section className="relative overflow-hidden bg-dark-surface py-24 lg:py-32">
+      <div className="container-gait">
+        <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+          <ScrollReveal direction="left">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+              Alliances
+            </p>
+            <h2 className="font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+              TRUSTED BY
+              <br />
+              INDUSTRY LEADERS
+            </h2>
+            <p className="mt-6 font-dm text-muted">
+              Explore our partner constellation — hover each node to reveal the alliance.
+            </p>
+          </ScrollReveal>
 
-      <div className="clients-mask relative overflow-hidden">
-        <Swiper
-          modules={[Autoplay]}
-          autoplay={{ delay: 0, disableOnInteraction: false }}
-          speed={4000}
-          loop
-          slidesPerView="auto"
-          spaceBetween={60}
-          allowTouchMove={false}
-          className="!overflow-visible"
-        >
-          {allClients.map((client, i) => (
-            <SwiperSlide key={i} style={{ width: "auto" }}>
-              <div className="group relative h-[60px] w-[120px]">
+          {/* Orbital logo display */}
+          <div className="relative mx-auto flex h-[320px] w-[320px] items-center justify-center">
+            <motion.div
+              className="absolute inset-0 rounded-full border border-dark-border"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.div
+              className="absolute inset-8 rounded-full border border-primary/20"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="relative z-10 flex h-32 w-48 items-center justify-center rounded-xl border border-dark-border bg-dark-elevated p-6"
+              >
                 <Image
-                  src={client.src}
-                  alt={client.alt}
-                  width={120}
-                  height={60}
-                  className="h-[60px] w-auto object-contain grayscale brightness-[0.6] transition-all duration-300 group-hover:grayscale-0 group-hover:brightness-100"
+                  src={clients[active % clients.length].src}
+                  alt={clients[active % clients.length].alt}
+                  width={140}
+                  height={70}
+                  className="object-contain"
                 />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </motion.div>
+            </AnimatePresence>
+            {doubled.slice(0, 7).map((client, i) => {
+              const angle = (i / 7) * Math.PI * 2 - Math.PI / 2;
+              const r = 140;
+              const x = Math.cos(angle) * r;
+              const y = Math.sin(angle) * r;
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onMouseEnter={() => setActive(i % clients.length)}
+                  onFocus={() => setActive(i % clients.length)}
+                  className="absolute flex h-14 w-14 items-center justify-center rounded-full border border-dark-border bg-dark-bg transition-all hover:scale-110 hover:border-primary"
+                  style={{
+                    left: `calc(50% + ${x}px - 28px)`,
+                    top: `calc(50% + ${y}px - 28px)`,
+                  }}
+                >
+                  <Image
+                    src={client.src}
+                    alt={client.alt}
+                    width={36}
+                    height={20}
+                    className="object-contain opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+                  />
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );

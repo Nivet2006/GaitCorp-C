@@ -1,64 +1,96 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import SectionLabel from "@/components/ui/SectionLabel";
-import { slideLeft, slideRight } from "@/lib/animations";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import MagneticCard from "@/components/ui/MagneticCard";
+import SplitLine from "@/components/ui/SplitLine";
 
 export default function FounderSection() {
-  return (
-    <section className="section-padding bg-[#0f0f0f]">
-      <div className="container-gait">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
-          <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative">
-            <div className="absolute -left-1.5 -top-1.5 h-[60px] w-[60px] border-l-[3px] border-t-[3px] border-primary" />
-            <div className="absolute -bottom-1.5 -right-1.5 h-[60px] w-[60px] border-b-[3px] border-r-[3px] border-primary" />
-            <div className="absolute -bottom-4 -left-4 grid grid-cols-5 gap-2 opacity-30">
-              {Array.from({ length: 25 }).map((_, i) => (
-                <div key={i} className="h-1 w-1 rounded-full bg-primary" />
-              ))}
-            </div>
-            <div className="relative h-[560px] overflow-hidden">
-              <Image
-                src="/images/about/founder.jpg"
-                alt="R.C. Ramesh Babu, Founder"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-          </motion.div>
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const imgX = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
-          <motion.div variants={slideRight} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <SectionLabel>Founder&apos;s Story</SectionLabel>
-            <h2 className="mb-6 font-dm text-[40px] font-bold text-white">
-              Engineering Excellence, Led by Vision
-            </h2>
-            <p className="mb-8 font-dm text-base leading-[1.9] text-muted">
-              R.C. Ramesh Babu, the driving force behind Gait Engineers, brings over 20 years
-              of expertise in castings and SPM solutions. With a deep understanding of
-              manufacturing and a passion for precision, he founded Gait Engineers to deliver
-              reliable, efficient, and innovative solutions. His leadership ensures every
-              project meets the highest standards of quality and professionalism.
-            </p>
-            <p className="mb-2 font-dm text-2xl italic text-primary underline decoration-primary decoration-1 underline-offset-4">
-              R.C. Ramesh Babu
-            </p>
-            <p className="mb-8 font-mono text-xs text-muted">
-              Founder & Director, Gait Engineering Works
-            </p>
-            <ul className="space-y-3">
-              {[
-                "20+ years of industry expertise",
-                "Specialist in Castings & SPM Solutions",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3 font-dm text-white">
-                  <span className="text-primary">◆</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+  return (
+    <section ref={ref} className="relative overflow-hidden bg-dark-bg py-24 lg:py-32">
+      <div className="container-gait">
+        <div className="grid gap-16 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1">
+            <ScrollReveal direction="right">
+              <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+                Founder&apos;s story
+              </p>
+              <h2 className="font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+                LED BY
+                <br />
+                <span className="text-primary">VISION</span>
+              </h2>
+              <SplitLine className="my-8" />
+              <p className="font-dm text-base leading-[1.9] text-muted">
+                R.C. Ramesh Babu brings over 20 years of expertise in castings and SPM
+                solutions. His leadership ensures every project meets the highest standards
+                of quality and professionalism.
+              </p>
+              <p className="mt-8 font-dm text-2xl italic text-primary">
+                R.C. Ramesh Babu
+              </p>
+              <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-muted">
+                Founder & Director
+              </p>
+              <ul className="mt-10 space-y-4">
+                {[
+                  "20+ years of industry expertise",
+                  "Specialist in Castings & SPM Solutions",
+                ].map((item, i) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="flex items-center gap-4 font-dm text-white"
+                  >
+                    <span className="font-mono text-primary">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {item}
+                  </motion.li>
+                ))}
+              </ul>
+            </ScrollReveal>
+          </div>
+
+          <div className="relative lg:col-span-6 lg:col-start-1 lg:row-start-1">
+            <motion.div style={{ x: imgX }} className="relative">
+              <MagneticCard className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-dark-border">
+                <Image
+                  src="/images/about/founder.jpg"
+                  alt="R.C. Ramesh Babu"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </MagneticCard>
+              <motion.div
+                className="absolute -bottom-6 -right-6 hidden h-48 w-48 overflow-hidden rounded-xl border border-dark-border lg:block"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+              >
+                <Image
+                  src="/images/about/footer-logo.jpg"
+                  alt="Gait facility"
+                  fill
+                  className="object-cover"
+                  sizes="200px"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

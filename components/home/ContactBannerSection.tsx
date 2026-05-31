@@ -2,78 +2,112 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function ContactBannerSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  const textRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const textX = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
-    if (imageRef.current) {
-      gsap.fromTo(
-        imageRef.current,
-        { yPercent: -20 },
-        {
-          yPercent: 20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            scrub: true,
-          },
-        }
-      );
-    }
+  useEffect(() => {
+    if (!textRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.fromTo(
+      textRef.current.querySelectorAll("[data-word]"),
+      { y: 80, opacity: 0, rotateX: -40 },
+      {
+        y: 0,
+        opacity: 1,
+        rotateX: 0,
+        stagger: 0.06,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+      }
+    );
   }, []);
 
-  return (
-    <section ref={sectionRef} className="relative flex h-[600px] items-center overflow-hidden">
-      <div ref={imageRef} className="absolute inset-0">
-        <Image
-          src="/images/hero/contact-hero-bg.jpg"
-          alt="Contact Gait Engineering"
-          fill
-          className="object-cover parallax-img"
-          sizes="100vw"
-        />
-      </div>
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{
-          background:
-            "rgba(10,10,10,0.75), linear-gradient(135deg, rgba(237,29,36,0.3), transparent 60%)",
-          backgroundBlendMode: "normal",
-        }}
-      />
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(237,29,36,0.3), transparent 60%)",
-        }}
-      />
-      <div className="absolute inset-0 z-[1] bg-dark-bg/75" />
+  const words = ["PRECISION", "IN", "EVERY", "CAST."];
 
-      <div className="container-gait relative z-10 text-center">
-        <p className="mb-4 font-mono text-xs tracking-[0.2em] text-white">
-          [ PARTNER WITH US ]
-        </p>
-        <div className="relative mx-auto mb-6 flex max-w-5xl items-center justify-center gap-6">
-          <div className="hidden h-20 w-0.5 rotate-45 bg-primary sm:block" />
-          <h2 className="font-bebas text-[clamp(48px,8vw,96px)] leading-tight text-white">
-            <span className="text-primary">PRECISION</span> IN EVERY CAST,{" "}
-            <span className="text-primary">EXCELLENCE</span> IN EVERY PRODUCT.
+  return (
+    <section
+      ref={sectionRef}
+      className="relative min-h-[90vh] overflow-hidden"
+    >
+      {/* Split layout — old site: centered text on full-bleed image */}
+      <div className="absolute inset-0 lg:w-1/2 lg:left-auto lg:right-0">
+        <motion.div style={{ y: imgY }} className="absolute inset-0 scale-110">
+          <Image
+            src="/images/hero/contact-hero-bg.jpg"
+            alt="Partner with GAIT"
+            fill
+            className="object-cover"
+            sizes="50vw"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-dark-bg/50 lg:bg-gradient-to-r lg:from-dark-bg lg:to-transparent" />
+      </div>
+
+      <div className="absolute inset-0 hidden bg-dark-bg lg:block lg:w-1/2" />
+
+      <div className="container-gait relative z-10 flex min-h-[90vh] items-center">
+        <motion.div
+          ref={textRef}
+          style={{ x: textX, perspective: 800 }}
+          className="max-w-xl py-20 lg:py-0"
+        >
+          <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+            Partner with us
+          </p>
+          <h2 className="mb-8 font-bebas text-[clamp(48px,8vw,88px)] leading-[0.95] text-white">
+            {words.map((w) => (
+              <span
+                key={w}
+                data-word
+                className="mr-[0.2em] inline-block"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {w === "PRECISION" ? (
+                  <span className="text-primary">{w}</span>
+                ) : (
+                  w
+                )}
+              </span>
+            ))}
+            <br />
+            <span data-word className="inline-block text-white/40">
+              EXCELLENCE
+            </span>{" "}
+            <span data-word className="inline-block text-primary">
+              DELIVERED.
+            </span>
           </h2>
-          <div className="hidden h-20 w-0.5 rotate-45 bg-primary sm:block" />
-        </div>
-        <p className="mb-10 font-dm text-lg text-white/70">
-          Partner with us for high-quality die casting solutions
-        </p>
-        <MagneticButton href="/contact" variant="outline" className="uppercase tracking-wider">
-          Get In Touch
-        </MagneticButton>
+          <p
+            data-word
+            className="mb-10 max-w-md font-dm text-lg text-muted"
+          >
+            High-quality die casting & SPM partnerships built on measurable outcomes.
+          </p>
+          <div data-word>
+            <MagneticButton href="/contact">Initiate Partnership</MagneticButton>
+          </div>
+
+          {/* Decorative laser lines */}
+          <motion.div
+            className="absolute -left-4 top-1/2 hidden h-32 w-px bg-primary lg:block"
+            animate={{ scaleY: [0, 1, 0] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            style={{ originY: 0.5 }}
+          />
+        </motion.div>
       </div>
     </section>
   );

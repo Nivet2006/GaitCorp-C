@@ -1,6 +1,5 @@
 "use client";
 
-import TopBar from "@/components/layout/TopBar";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CursorFollower from "@/components/ui/CursorFollower";
@@ -18,9 +17,8 @@ export default function ClientLayout({
       <GSAPProvider>
         <CursorFollower />
         <ScrollProgress />
-        <TopBar />
         <Navbar />
-        <main className="pt-[120px]">{children}</main>
+        <main>{children}</main>
         <Footer />
       </GSAPProvider>
     </LenisProvider>

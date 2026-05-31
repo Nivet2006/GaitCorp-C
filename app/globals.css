@@ -27,6 +27,11 @@
     cursor: none;
   }
 
+  html.cursor-custom a,
+  html.cursor-custom button {
+    cursor: none;
+  }
+
   body {
     @apply bg-dark-bg text-white font-dm antialiased overflow-x-hidden;
   }
@@ -37,76 +42,50 @@
     inset: 0;
     z-index: 9998;
     pointer-events: none;
-    opacity: 0.03;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 
+  ::selection {
+    background: rgba(237, 29, 36, 0.35);
+    color: #fff;
+  }
+
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #111111;
+    background: #0a0a0a;
   }
 
   ::-webkit-scrollbar-thumb {
     background: #ed1d24;
-    border-radius: 4px;
+    border-radius: 3px;
   }
 }
 
 @layer components {
-  .nav-link {
-    @apply relative font-dm text-sm text-white transition-colors duration-300 hover:text-primary;
-  }
-
-  .nav-link::after {
-    content: "";
-    @apply absolute bottom-0 left-0 h-px w-0 bg-primary transition-all duration-300;
-  }
-
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    @apply w-full;
-  }
-
   .section-padding {
     @apply py-16 lg:py-[120px];
   }
 
   .container-gait {
-    @apply mx-auto max-w-7xl px-4 sm:px-8 lg:px-16 xl:px-24;
+    @apply mx-auto max-w-[1400px] px-4 sm:px-8 lg:px-12 xl:px-16;
   }
 
-  .hero-title {
-    font-family: var(--font-bebas), sans-serif;
-    font-size: clamp(64px, 10vw, 140px);
-    line-height: 0.9;
+  .text-stroke {
+    -webkit-text-stroke: 1px rgba(237, 29, 36, 0.4);
+    color: transparent;
   }
 
-  .section-title {
-    font-family: var(--font-bebas), sans-serif;
-    font-size: clamp(40px, 6vw, 80px);
+  .glass-panel {
+    @apply border border-white/10 bg-white/5 backdrop-blur-xl;
   }
+}
 
-  .clients-mask::before,
-  .clients-mask::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 120px;
-    z-index: 10;
-    pointer-events: none;
-  }
-
-  .clients-mask::before {
-    left: 0;
-    background: linear-gradient(to right, #111111 0%, transparent 100%);
-  }
-
-  .clients-mask::after {
-    right: 0;
-    background: linear-gradient(to left, #111111 0%, transparent 100%);
+@layer utilities {
+  .preserve-3d {
+    transform-style: preserve-3d;
   }
 }

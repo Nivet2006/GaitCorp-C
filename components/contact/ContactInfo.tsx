@@ -1,61 +1,116 @@
-import Image from "next/image";
-import { Phone, Mail, MapPin } from "lucide-react";
-import SectionLabel from "@/components/ui/SectionLabel";
-import { contactInfo } from "@/lib/data";
+"use client";
 
-const cards = [
-  { icon: Phone, label: "Phone", value: contactInfo.phone, href: `tel:${contactInfo.phone}` },
-  { icon: Mail, label: "Email", value: contactInfo.email, href: `mailto:${contactInfo.email}` },
-  { icon: MapPin, label: "Address", value: contactInfo.address },
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { contactInfo } from "@/lib/data";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import MagneticCard from "@/components/ui/MagneticCard";
+
+const channels = [
+  {
+    icon: Phone,
+    label: "Direct line",
+    value: contactInfo.phone,
+    href: `tel:${contactInfo.phone}`,
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: contactInfo.email,
+    href: `mailto:${contactInfo.email}`,
+  },
+  {
+    icon: MapPin,
+    label: "Facility",
+    value: contactInfo.address,
+  },
 ];
 
 export default function ContactInfo() {
   return (
-    <div>
-      <SectionLabel>Contact Us</SectionLabel>
-      <h1 className="mb-6 font-dm text-[clamp(28px,4vw,40px)] font-bold leading-tight text-white">
-        Partner with <span className="text-primary">Gait Engineering</span> for Excellence
-        in Die Casting!
-      </h1>
-      <p className="mb-10 font-dm text-base text-muted">
-        Get in touch with us today to discuss your project requirements. Our team is ready
-        to deliver precision-engineered solutions tailored to your needs.
-      </p>
+    <div className="lg:sticky lg:top-28">
+      <ScrollReveal direction="left">
+        <h2 className="font-bebas text-[clamp(32px,5vw,56px)] leading-[0.95] text-white">
+          PARTNER WITH
+          <br />
+          <span className="text-primary">GAIT ENGINEERING</span>
+        </h2>
+        <p className="mt-6 font-dm text-muted">
+          Discuss castings, SPM, or prototyping — our Bangalore team responds within one
+          business day.
+        </p>
+      </ScrollReveal>
 
-      <div className="mb-10 space-y-4">
-        {cards.map(({ icon: Icon, label, value, href }) => (
-          <div
-            key={label}
-            className="flex gap-4 rounded-lg border border-dark-border bg-dark-surface p-5"
-          >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
-              <Icon size={20} className="text-primary" />
-            </div>
-            <div>
-              <p className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">
-                {label}
-              </p>
-              {href ? (
-                <a href={href} className="font-dm text-base font-semibold text-white hover:text-primary">
-                  {value}
+      <div className="mt-12 space-y-4">
+        {channels.map((ch, i) => (
+          <ScrollReveal key={ch.label} direction="left" delay={i * 0.1}>
+            <MagneticCard tilt={5}>
+              {ch.href ? (
+                <a
+                  href={ch.href}
+                  data-cursor-hover
+                  className="group flex items-start gap-5 rounded-2xl border border-dark-border bg-dark-surface/50 p-6 transition-colors hover:border-primary/50"
+                >
+                  <ChannelBody {...ch} link />
                 </a>
               ) : (
-                <p className="font-dm text-base font-semibold text-white">{value}</p>
+                <div className="flex items-start gap-5 rounded-2xl border border-dark-border bg-dark-surface/50 p-6">
+                  <ChannelBody {...ch} />
+                </div>
               )}
-            </div>
-          </div>
+            </MagneticCard>
+          </ScrollReveal>
         ))}
       </div>
 
-      <div className="relative h-[400px] overflow-hidden rounded-lg">
-        <Image
-          src="/images/contact/contact-us.jpg"
-          alt="Contact Gait Engineering"
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 40vw"
-        />
-      </div>
+      <ScrollReveal direction="scale" className="mt-8">
+        <div className="relative aspect-video overflow-hidden rounded-2xl border border-dark-border">
+          <Image
+            src="/images/contact/contact-us.jpg"
+            alt="Gait Engineering facility"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 40vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 to-transparent" />
+          <p className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-widest text-white">
+            K.R. Puram · Bangalore
+          </p>
+        </div>
+      </ScrollReveal>
     </div>
+  );
+}
+
+function ChannelBody({
+  icon: Icon,
+  label,
+  value,
+  link,
+}: {
+  icon: typeof Phone;
+  label: string;
+  value: string;
+  link?: boolean;
+}) {
+  return (
+    <>
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
+        <Icon size={20} className="text-primary" />
+      </div>
+      <div className="flex-1">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-muted">
+          {label}
+        </p>
+        <p className="mt-1 font-dm text-base font-semibold text-white">{value}</p>
+      </div>
+      {link && (
+        <ArrowUpRight
+          size={18}
+          className="text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
+        />
+      )}
+    </>
   );
 }

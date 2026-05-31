@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import {
   Handshake,
@@ -11,7 +12,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { achievements } from "@/lib/data";
-import { staggerContainer, scaleIn } from "@/lib/animations";
+import { usePinHorizontalScroll } from "@/lib/scroll-hooks";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const iconMap: Record<string, LucideIcon> = {
   Handshake,
@@ -23,44 +25,58 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export default function AchievementsSection() {
-  return (
-    <section className="section-padding bg-dark-bg">
-      <div className="container-gait">
-        <p className="mx-auto mb-16 max-w-[800px] text-center font-dm text-[clamp(20px,3vw,28px)] leading-relaxed text-muted">
-          Shaping a future of engineering excellence through groundbreaking achievements
-          and unwavering dedication
-        </p>
+  const pinRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  usePinHorizontalScroll(pinRef, trackRef);
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+  return (
+    <section className="bg-[#0f0f0f]">
+      <div className="container-gait py-20">
+        <ScrollReveal direction="up">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+            Milestones
+          </p>
+          <h2 className="max-w-3xl font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+            ACHIEVEMENTS THAT
+            <span className="text-primary"> DEFINE US</span>
+          </h2>
+        </ScrollReveal>
+      </div>
+
+      <section ref={pinRef} className="relative h-screen overflow-hidden">
+        <div
+          ref={trackRef}
+          className="flex h-full items-stretch gap-6 px-6 will-change-transform lg:px-16"
         >
-          {achievements.map((item) => {
+          {achievements.map((item, i) => {
             const Icon = iconMap[item.icon];
             return (
-              <motion.div
+              <motion.article
                 key={item.title}
-                variants={scaleIn}
-                whileHover={{ y: -6 }}
-                className="rounded-lg border border-dark-border bg-dark-surface p-10 transition-all duration-300 hover:border-primary hover:bg-dark-elevated hover:shadow-[0_16px_48px_rgba(237,29,36,0.08)]"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                className="flex h-[70vh] w-[85vw] shrink-0 flex-col justify-between rounded-2xl border border-dark-border bg-dark-surface p-10 md:w-[400px]"
               >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-primary/30 bg-primary/10">
-                  <Icon size={28} className="text-primary" />
+                <div>
+                  <span className="font-mono text-xs text-primary">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="mt-8 flex h-20 w-20 items-center justify-center rounded-full border border-primary/30 bg-primary/10">
+                    <Icon size={32} className="text-primary" />
+                  </div>
                 </div>
-                <h3 className="mt-6 font-dm text-xl font-semibold text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-3 font-dm text-sm leading-relaxed text-muted">
-                  {item.description}
-                </p>
-              </motion.div>
+                <div>
+                  <h3 className="font-dm text-2xl font-bold text-white">{item.title}</h3>
+                  <p className="mt-4 font-dm text-sm leading-relaxed text-muted">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.article>
             );
           })}
-        </motion.div>
-      </div>
+        </div>
+      </section>
     </section>
   );
 }

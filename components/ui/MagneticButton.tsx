@@ -54,7 +54,7 @@ export default function MagneticButton({
       style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={baseClass}
+      className={cn(baseClass, className?.includes("w-full") && "flex w-full items-center justify-center")}
       onClick={onClick}
     >
       {children}

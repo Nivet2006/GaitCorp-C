@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import PageHero from "@/components/ui/PageHero";
+import ServicesPageHero from "@/components/services/ServicesPageHero";
 import ServicesSidebar from "@/components/services/ServicesSidebar";
 import ServicesContent from "@/components/services/ServicesContent";
 import CastingTypesSection from "@/components/services/CastingTypesSection";
+import InnerPageCTA from "@/components/shared/InnerPageCTA";
 import { pageTransition } from "@/lib/animations";
 
 export default function ServicesPage() {
@@ -14,9 +15,9 @@ export default function ServicesPage() {
 
   return (
     <motion.div {...pageTransition}>
-      <PageHero title="OUR SERVICES" breadcrumb="Home / Services" />
-      <section className="section-padding bg-dark-bg">
-        <div className="container-gait flex flex-col gap-10 lg:flex-row">
+      <ServicesPageHero />
+      <section className="bg-dark-bg py-16 lg:py-24">
+        <div className="container-gait flex flex-col gap-12 lg:flex-row lg:gap-20">
           <ServicesSidebar
             activeCategory={activeCategory}
             activeSub={activeSub}
@@ -29,6 +30,10 @@ export default function ServicesPage() {
         </div>
       </section>
       <CastingTypesSection />
+      <InnerPageCTA
+        title="READY TO ENGINEER YOUR NEXT CASTING PROJECT?"
+        buttonText="Get In Touch"
+      />
     </motion.div>
   );
 }

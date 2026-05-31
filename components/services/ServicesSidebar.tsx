@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
 import { serviceCategories } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -17,74 +15,74 @@ export default function ServicesSidebar({
   activeSub,
   onSelect,
 }: ServicesSidebarProps) {
-  const [openCategories, setOpenCategories] = useState<string[]>([
-    "Casting Manufacturing",
-  ]);
-
-  const toggle = (name: string) => {
-    setOpenCategories((prev) =>
-      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
-    );
-  };
+  let index = 0;
 
   return (
-    <aside className="sticky top-28 w-full shrink-0 rounded-lg border border-dark-border bg-dark-surface p-6 lg:w-[300px]">
-      <ul className="space-y-2">
-        {serviceCategories.map((cat) => {
-          const isOpen = openCategories.includes(cat.name);
-          const hasSubs = cat.subcategories.length > 0;
+    <nav className="flex flex-col gap-2 lg:sticky lg:top-28 lg:w-72">
+      <p className="mb-4 hidden font-mono text-[10px] uppercase tracking-[0.35em] text-primary lg:block">
+        Select discipline
+      </p>
+      {serviceCategories.map((cat) => {
+        const catIndex = ++index;
+        const subs = cat.subcategories.length > 0 ? cat.subcategories : [cat.name];
 
-          return (
-            <li key={cat.name}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (hasSubs) toggle(cat.name);
-                  else onSelect(cat.name, "");
-                }}
+        return (
+          <div key={cat.name} className="mb-4">
+            <button
+              type="button"
+              onClick={() => onSelect(cat.name, subs[0] ?? "")}
+              className={cn(
+                "group flex w-full items-baseline gap-4 border-b border-dark-border py-4 text-left transition-colors",
+                activeCategory === cat.name && "border-primary"
+              )}
+            >
+              <span
                 className={cn(
-                  "flex w-full items-center justify-between rounded px-3 py-3 font-dm text-base font-semibold text-white transition-colors hover:bg-dark-elevated",
-                  activeCategory === cat.name && "border-l-2 border-primary bg-dark-elevated"
+                  "font-mono text-xs transition-colors",
+                  activeCategory === cat.name ? "text-primary" : "text-muted"
+                )}
+              >
+                {String(catIndex).padStart(2, "0")}
+              </span>
+              <span
+                className={cn(
+                  "font-dm text-sm font-semibold uppercase tracking-wide transition-colors lg:text-base",
+                  activeCategory === cat.name
+                    ? "text-white"
+                    : "text-muted group-hover:text-white"
                 )}
               >
                 {cat.name}
-                {hasSubs &&
-                  (isOpen ? (
-                    <ChevronDown size={18} />
-                  ) : (
-                    <ChevronRight size={18} />
-                  ))}
-              </button>
-              <AnimatePresence>
-                {hasSubs && isOpen && (
-                  <motion.ul
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden pl-2"
+              </span>
+            </button>
+            {cat.subcategories.length > 0 && (
+              <div className="ml-8 mt-1 space-y-1 border-l border-dark-border pl-4">
+                {cat.subcategories.map((sub) => (
+                  <button
+                    key={sub}
+                    type="button"
+                    onClick={() => onSelect(cat.name, sub)}
+                    className={cn(
+                      "block w-full py-2 text-left font-dm text-xs transition-colors",
+                      activeSub === sub && activeCategory === cat.name
+                        ? "text-primary"
+                        : "text-muted hover:text-white"
+                    )}
                   >
-                    {cat.subcategories.map((sub) => (
-                      <li key={sub}>
-                        <button
-                          type="button"
-                          onClick={() => onSelect(cat.name, sub)}
-                          className={cn(
-                            "w-full rounded py-2 pl-4 text-left font-dm text-sm text-muted transition-colors hover:text-white",
-                            activeSub === sub &&
-                              "font-mono text-primary"
-                          )}
-                        >
-                          {sub}
-                        </button>
-                      </li>
-                    ))}
-                  </motion.ul>
-                )}
-              </AnimatePresence>
-            </li>
-          );
-        })}
-      </ul>
-    </aside>
+                    {sub}
+                  </button>
+                ))}
+              </div>
+            )}
+            {activeCategory === cat.name && (
+              <motion.div
+                layoutId="service-active"
+                className="mt-2 h-0.5 w-full bg-primary"
+              />
+            )}
+          </div>
+        );
+      })}
+    </nav>
   );
 }
