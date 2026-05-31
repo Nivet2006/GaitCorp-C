@@ -29,7 +29,13 @@ export default function Footer() {
       <div className="container-gait relative py-20">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <Image src="/logo.svg" alt="GAIT" width={140} height={50} className="mb-6" />
+            <Image
+              src="/no-bg-logo-main.png"
+              alt="GAIT Engineers"
+              width={160}
+              height={94}
+              className="mb-6 h-24 w-auto"
+            />
             <p className="max-w-xs font-dm text-sm text-muted">
               Precision non-ferrous castings & SPM — Bangalore, India.
             </p>
@@ -68,16 +74,53 @@ export default function Footer() {
           <p className="font-mono text-[10px] text-[#4a4a4a]">
             ©2025 Gait Engineering Works
           </p>
-          <p className="font-mono text-[10px] text-[#4a4a4a]">
-            <a
-              href="https://devcreationsblr.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary"
+          <motion.a
+            href="https://devcreationsblr.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative inline-flex"
+            aria-label="Dev Creations and Solutions"
+            initial="rest"
+            whileHover="hover"
+            whileTap="tap"
+          >
+            <motion.span
+              className="pointer-events-none absolute inset-0 -inset-x-4 -inset-y-2 rounded-full blur-xl"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 70%)",
+              }}
+              variants={{
+                rest: { opacity: 0, scale: 0.8 },
+                hover: { opacity: 1, scale: 1.15 },
+                tap: { opacity: 0.7, scale: 1 },
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+            />
+            <motion.span
+              variants={{
+                rest: {
+                  scale: 1,
+                  filter: "drop-shadow(0 0 0px rgba(255,255,255,0))",
+                },
+                hover: {
+                  scale: 1.05,
+                  filter:
+                    "drop-shadow(0 0 6px rgba(255,255,255,0.9)) drop-shadow(0 0 18px rgba(255,255,255,0.55)) drop-shadow(0 0 32px rgba(255,255,255,0.25))",
+                },
+                tap: { scale: 0.98 },
+              }}
+              transition={{ type: "spring", stiffness: 380, damping: 24 }}
             >
-              Dev Creations and Solutions
-            </a>
-          </p>
+              <Image
+                src="/dot-work-white.png"
+                alt="Dev Creations and Solutions"
+                width={240}
+                height={160}
+                className="relative z-10 h-20 w-auto sm:h-24"
+              />
+            </motion.span>
+          </motion.a>
         </div>
       </div>
     </footer>

@@ -30,13 +30,70 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Minimal top-left logo only — no corporate header bar */}
-      <Link
-        href="/"
-        className="fixed left-6 top-6 z-50 mix-blend-difference lg:left-10 lg:top-8"
+      <motion.div
+        className="fixed left-4 top-4 z-50 sm:left-6 sm:top-6 lg:left-10 lg:top-8"
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <Image src="/logo.svg" alt="GAIT" width={100} height={36} priority />
-      </Link>
+        <Link href="/" className="block">
+          <motion.div
+            className="relative flex items-center overflow-hidden rounded-2xl border border-white/10 bg-dark-bg/90 px-3 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+            initial="rest"
+            whileHover="hover"
+            whileTap="tap"
+            variants={{
+              rest: {
+                scale: 1,
+                y: 0,
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
+              },
+              hover: {
+                scale: 1.05,
+                y: -3,
+                boxShadow:
+                  "0 14px 40px rgba(237, 29, 36, 0.18), 0 8px 32px rgba(0, 0, 0, 0.55)",
+              },
+              tap: { scale: 0.98, y: 0 },
+            }}
+            transition={{ type: "spring", stiffness: 380, damping: 24 }}
+          >
+            <motion.div
+              className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent"
+              variants={{
+                rest: { borderColor: "rgba(255, 255, 255, 0.1)" },
+                hover: { borderColor: "rgba(237, 29, 36, 0.5)" },
+              }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-primary/25 to-transparent"
+              variants={{
+                rest: { x: "-120%", opacity: 0 },
+                hover: { x: "120%", opacity: 1 },
+              }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            />
+            <motion.div
+              variants={{
+                rest: { scale: 1 },
+                hover: { scale: 1.04 },
+                tap: { scale: 0.98 },
+              }}
+              transition={{ type: "spring", stiffness: 320, damping: 20 }}
+            >
+              <Image
+                src="/no-bg-logo-main.png"
+                alt="GAIT Engineers"
+                width={120}
+                height={70}
+                className="relative z-10 h-14 w-auto"
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        </Link>
+      </motion.div>
 
       {/* Floating dock nav — completely unlike gaitcorp.in top menu */}
       <motion.nav

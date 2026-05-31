@@ -1,14 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { clients } from "@/lib/data";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
+const AUTO_ADVANCE_MS = 2000;
+
 export default function ClientsSection() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const doubled = [...clients, ...clients];
+
+  useEffect(() => {
+    if (paused) return;
+    const interval = setInterval(() => {
+      setActive((i) => (i + 1) % clients.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(interval);
+  }, [paused]);
 
   return (
     <section className="relative overflow-hidden bg-dark-surface py-24 lg:py-32">
@@ -29,7 +40,11 @@ export default function ClientsSection() {
           </ScrollReveal>
 
           {/* Orbital logo display */}
-          <div className="relative mx-auto flex h-[320px] w-[320px] items-center justify-center">
+          <div
+            className="relative mx-auto flex h-[320px] w-[320px] items-center justify-center"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
             <motion.div
               className="absolute inset-0 rounded-full border border-dark-border"
               animate={{ rotate: 360 }}

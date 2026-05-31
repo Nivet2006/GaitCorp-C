@@ -20,7 +20,7 @@ export default function PageHero({
   const parts = breadcrumb.split(" / ");
 
   return (
-    <section className="relative overflow-hidden bg-dark-bg pt-28 pb-16 lg:pt-36 lg:pb-24">
+    <section className="relative overflow-hidden bg-dark-bg pt-32 pb-16 lg:pt-40 lg:pb-24">
       <motion.div
         className="pointer-events-none absolute -right-10 top-0 font-bebas text-[30vw] leading-none text-white/[0.03]"
         initial={{ x: 40 }}

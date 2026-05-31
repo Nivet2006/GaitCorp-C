@@ -17,7 +17,7 @@ export default function ServicesPageHero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[70vh] items-end overflow-hidden bg-dark-bg pt-28"
+      className="relative flex min-h-[70vh] items-end overflow-hidden bg-dark-bg pt-32 lg:pt-36"
     >
       <motion.div
         style={{ y, opacity }}

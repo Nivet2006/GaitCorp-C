@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { testimonials } from "@/lib/data";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -14,13 +14,175 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
+const ease = [0.16, 1, 0.3, 1] as const;
+const AUTO_ADVANCE_MS = 6000;
+const spring = { type: "spring" as const, stiffness: 260, damping: 32 };
+const GOLD = "#f5c542";
+const GOLD_LIGHT = "#ffe08a";
+const GOLD_DARK = "#c9971a";
+
+function SparklingStar({
+  filled,
+  index,
+  active,
+}: {
+  filled: boolean;
+  index: number;
+  active: boolean;
+}) {
+  return (
+    <motion.span
+      className="relative inline-flex"
+      initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
+      animate={
+        active
+          ? {
+              opacity: 1,
+              scale: 1,
+              rotate: 0,
+            }
+          : { opacity: 0, scale: 0.4, rotate: -20 }
+      }
+      transition={{ duration: 0.45, delay: index * 0.08, ease }}
+    >
+      {filled && (
+        <motion.span
+          className="pointer-events-none absolute inset-0 rounded-full blur-sm"
+          style={{ background: `radial-gradient(circle, ${GOLD_LIGHT} 0%, transparent 70%)` }}
+          animate={
+            active
+              ? {
+                  opacity: [0.12, 0.28, 0.12],
+                  scale: [0.95, 1.08, 0.95],
+                }
+              : { opacity: 0, scale: 0.95 }
+          }
+          transition={{
+            duration: 2.8,
+            repeat: Infinity,
+            delay: index * 0.35,
+            ease: "easeInOut",
+          }}
+        />
+      )}
+      <motion.span
+        animate={
+          active && filled
+            ? {
+                filter: [
+                  `drop-shadow(0 0 1px ${GOLD}) drop-shadow(0 0 3px ${GOLD_LIGHT})`,
+                  `drop-shadow(0 0 2px ${GOLD_LIGHT}) drop-shadow(0 0 5px ${GOLD})`,
+                  `drop-shadow(0 0 1px ${GOLD}) drop-shadow(0 0 3px ${GOLD_LIGHT})`,
+                ],
+                scale: [1, 1.06, 1],
+              }
+            : { filter: "none", scale: 1 }
+        }
+        transition={{
+          duration: 2.4,
+          repeat: Infinity,
+          delay: index * 0.3,
+          ease: "easeInOut",
+        }}
+      >
+        <Star
+          size={20}
+          fill={filled ? GOLD : "transparent"}
+          color={filled ? GOLD_DARK : "#2a2a2a"}
+          strokeWidth={filled ? 1.5 : 1.75}
+        />
+      </motion.span>
+    </motion.span>
+  );
+}
+
+const slideContent = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.12 },
+  },
+};
+
+const slideItem = {
+  hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.55, ease },
+  },
+};
+
+type Testimonial = (typeof testimonials)[number];
+
+function TestimonialCard({
+  testimonial,
+  slideIndex,
+  active,
+}: {
+  testimonial: Testimonial;
+  slideIndex: number;
+  active: boolean;
+}) {
+  return (
+    <motion.div
+      variants={slideContent}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+      className="rounded-2xl border border-dark-border bg-dark-surface/80 p-10 backdrop-blur-xl md:p-16"
+    >
+      <motion.div variants={slideItem} className="mb-8 flex gap-1.5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <SparklingStar
+            key={i}
+            index={i}
+            active={active}
+            filled={i < testimonial.stars}
+          />
+        ))}
+      </motion.div>
+      <motion.blockquote
+        variants={slideItem}
+        className="mb-12 max-w-4xl font-dm text-xl leading-relaxed text-white/90 md:text-2xl md:leading-relaxed"
+      >
+        &ldquo;{testimonial.quote}&rdquo;
+      </motion.blockquote>
+      <motion.div variants={slideItem} className="flex items-center gap-5">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary font-dm font-bold text-white">
+          {getInitials(testimonial.author)}
+        </div>
+        <div>
+          <p className="font-dm text-lg font-semibold text-white">
+            {testimonial.author}
+          </p>
+          <p className="font-mono text-xs text-muted">{testimonial.designation}</p>
+        </div>
+        <span className="ml-auto font-mono text-6xl font-bold text-white/5">
+          0{slideIndex + 1}
+        </span>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function TestimonialsSection() {
   const [index, setIndex] = useState(0);
-  const t = testimonials[index];
+  const [paused, setPaused] = useState(false);
 
-  const next = () => setIndex((i) => (i + 1) % testimonials.length);
-  const prev = () =>
-    setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+  const goTo = (nextIndex: number) => {
+    setIndex((nextIndex + testimonials.length) % testimonials.length);
+  };
+
+  const next = () => goTo(index + 1);
+  const prev = () => goTo(index - 1);
+
+  useEffect(() => {
+    if (paused) return;
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % testimonials.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(interval);
+  }, [paused]);
 
   return (
     <section className="relative overflow-hidden bg-dark-bg py-24 lg:py-32">
@@ -66,47 +228,50 @@ export default function TestimonialsSection() {
           </div>
         </ScrollReveal>
 
-        {/* Single large card — not 3-column grid like gaitcorp.in */}
-        <div className="relative min-h-[360px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: 80, filter: "blur(8px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: -80, filter: "blur(8px)" }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-2xl border border-dark-border bg-dark-surface/80 p-10 backdrop-blur-xl md:p-16"
-            >
-              <div className="mb-8 flex gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    fill={i < t.stars ? "#ed1d24" : "transparent"}
-                    color={i < t.stars ? "#ed1d24" : "#2a2a2a"}
-                  />
-                ))}
+        <div
+          className="relative min-h-[360px] overflow-hidden"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <motion.div
+            className="flex"
+            animate={{ x: `-${index * 100}%` }}
+            transition={spring}
+          >
+            {testimonials.map((testimonial, i) => (
+              <div key={testimonial.author + i} className="w-full shrink-0">
+                <TestimonialCard
+                  testimonial={testimonial}
+                  slideIndex={i}
+                  active={index === i}
+                />
               </div>
-              <blockquote className="mb-12 max-w-4xl font-dm text-xl leading-relaxed text-white/90 md:text-2xl md:leading-relaxed">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-              <div className="flex items-center gap-5">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary font-dm font-bold text-white">
-                  {getInitials(t.author)}
-                </div>
-                <div>
-                  <p className="font-dm text-lg font-semibold text-white">{t.author}</p>
-                  <p className="font-mono text-xs text-muted">{t.designation}</p>
-                </div>
-                <span className="ml-auto font-mono text-6xl font-bold text-white/5">
-                  0{index + 1}
-                </span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+            ))}
+          </motion.div>
         </div>
 
-        <div className="mt-8 flex justify-center gap-2 sm:hidden">
+        <div className="mt-10 flex items-center justify-center gap-3">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={`Go to testimonial ${i + 1}`}
+              className="py-2"
+            >
+              <motion.div
+                className="h-1.5 rounded-full"
+                animate={{
+                  width: i === index ? 32 : 8,
+                  backgroundColor: i === index ? "#ed1d24" : "#2a2a2a",
+                }}
+                transition={spring}
+              />
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-4 flex justify-center gap-2 sm:hidden">
           <button type="button" onClick={prev} aria-label="Previous">
             <ChevronLeft />
           </button>

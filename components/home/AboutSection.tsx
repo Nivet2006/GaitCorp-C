@@ -46,7 +46,7 @@ export default function AboutSection() {
 
       <div className="container-gait">
         <ScrollReveal direction="left" className="mb-16 max-w-3xl">
-          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+          <p className="mb-3 font-mono text-xs uppercase tracking-[0.35em] text-primary">
             Who we are
           </p>
           <h2 className="font-bebas text-[clamp(48px,7vw,96px)] leading-[0.95] text-white">

@@ -16,7 +16,7 @@ export default function GalleryPageHero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[60vh] items-end overflow-hidden bg-dark-bg pt-28"
+      className="relative flex min-h-[60vh] items-end overflow-hidden bg-dark-bg pt-32 lg:pt-36"
     >
       <motion.div style={{ opacity, scale }} className="container-gait pb-16">
         <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.35em] text-muted">

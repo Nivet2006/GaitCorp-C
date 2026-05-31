@@ -75,20 +75,6 @@ export default function FounderSection() {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </MagneticCard>
-              <motion.div
-                className="absolute -bottom-6 -right-6 hidden h-48 w-48 overflow-hidden rounded-xl border border-dark-border lg:block"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-              >
-                <Image
-                  src="/images/about/footer-logo.jpg"
-                  alt="Gait facility"
-                  fill
-                  className="object-cover"
-                  sizes="200px"
-                />
-              </motion.div>
             </motion.div>
           </div>
         </div>

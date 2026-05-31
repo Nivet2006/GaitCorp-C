@@ -100,7 +100,7 @@ export default function HeroSection() {
       {/* Left content — asymmetric, outline typography */}
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 flex min-h-[100dvh] flex-col justify-end px-6 pb-28 pt-28 lg:max-w-[50%] lg:justify-center lg:px-16 lg:pb-20 lg:pt-0 xl:px-24"
+        className="relative z-10 flex min-h-[100dvh] flex-col justify-end px-6 pb-28 pt-24 sm:pt-28 lg:max-w-[50%] lg:justify-center lg:px-16 lg:pb-20 lg:pt-28 xl:px-24"
       >
         <motion.div
           initial={{ width: 0 }}
