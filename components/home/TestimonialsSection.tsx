@@ -129,7 +129,7 @@ function TestimonialCard({
       variants={slideContent}
       initial="hidden"
       animate={active ? "visible" : "hidden"}
-      className="rounded-2xl border border-dark-border bg-dark-surface/80 p-10 backdrop-blur-xl md:p-16"
+      className="anime-reveal-blur anime-shimmer rounded-2xl border border-dark-border bg-dark-surface/80 p-10 backdrop-blur-xl md:p-16"
     >
       <motion.div variants={slideItem} className="mb-8 flex gap-1.5">
         {Array.from({ length: 5 }).map((_, i) => (
@@ -204,7 +204,7 @@ export default function TestimonialsSection() {
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
               Voices
             </p>
-            <h2 className="font-bebas text-[clamp(40px,6vw,72px)] text-white">
+            <h2 className="anime-split font-bebas text-[clamp(40px,6vw,72px)] text-white">
               CLIENT TESTIMONIALS
             </h2>
           </div>

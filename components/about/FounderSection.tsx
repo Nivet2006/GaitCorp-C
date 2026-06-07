@@ -24,10 +24,10 @@ export default function FounderSection() {
               <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
                 Founder&apos;s story
               </p>
-              <h2 className="font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+              <h2 className="anime-split font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
                 LED BY
                 <br />
-                <span className="text-primary">VISION</span>
+                <span className="anime-shimmer text-primary">VISION</span>
               </h2>
               <SplitLine className="my-8" />
               <p className="font-dm text-base leading-[1.9] text-muted">

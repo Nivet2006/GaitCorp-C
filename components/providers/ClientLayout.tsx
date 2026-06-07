@@ -7,6 +7,8 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import BackToTop from "@/components/ui/BackToTop";
 import LenisProvider from "@/components/providers/LenisProvider";
 import GSAPProvider from "@/components/providers/GSAPProvider";
+import AnimeProvider from "@/components/providers/AnimeProvider";
+import AnimeDecorations from "@/components/ui/AnimeDecorations";
 
 export default function ClientLayout({
   children,
@@ -16,12 +18,15 @@ export default function ClientLayout({
   return (
     <LenisProvider>
       <GSAPProvider>
-        <CursorFollower />
-        <ScrollProgress />
-        <BackToTop />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <AnimeProvider>
+          <AnimeDecorations />
+          <CursorFollower />
+          <ScrollProgress />
+          <BackToTop />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </AnimeProvider>
       </GSAPProvider>
     </LenisProvider>
   );

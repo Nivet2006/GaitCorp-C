@@ -46,20 +46,20 @@ export default function AboutSection() {
 
       <div className="container-gait">
         <ScrollReveal direction="left" className="mb-16 max-w-3xl">
-          <p className="mb-3 font-mono text-xs uppercase tracking-[0.35em] text-primary">
+          <p className="anime-reveal anime-shimmer mb-3 font-mono text-xs uppercase tracking-[0.35em] text-primary">
             Who we are
           </p>
-          <h2 className="font-bebas text-[clamp(48px,7vw,96px)] leading-[0.95] text-white">
+          <h2 className="anime-split font-bebas text-[clamp(48px,7vw,96px)] leading-[0.95] text-white">
             TWO DECADES OF
             <br />
-            <span className="text-primary">INDUSTRIAL CRAFT</span>
+            <span className="anime-wave text-primary">INDUSTRIAL CRAFT</span>
           </h2>
         </ScrollReveal>
 
         {/* Bento grid — old site uses simple 60/40 split */}
-        <div className="grid auto-rows-[minmax(180px,auto)] gap-4 md:grid-cols-12">
+        <div className="anime-stagger grid auto-rows-[minmax(180px,auto)] gap-4 md:grid-cols-12">
           <ScrollReveal direction="clip" className="md:col-span-7 md:row-span-2">
-            <MagneticCard className="relative h-full min-h-[320px] overflow-hidden rounded-2xl border border-dark-border md:min-h-[480px]">
+            <MagneticCard className="anime-reveal-scale anime-parallax relative h-full min-h-[320px] overflow-hidden rounded-2xl border border-dark-border md:min-h-[480px]" data-anime-depth="0.1">
               <Image
                 src="/images/about/about_worker.jpg"
                 alt="Engineering team"
@@ -86,7 +86,7 @@ export default function AboutSection() {
             >
               <motion.div
                 whileHover={{ borderColor: "rgba(237,29,36,0.6)" }}
-                className="flex h-full flex-col justify-between rounded-2xl border border-dark-border bg-dark-surface p-8"
+                className="anime-pop anime-magnetic flex h-full flex-col justify-between rounded-2xl border border-dark-border bg-dark-surface p-8"
               >
                 <span className="font-mono text-xs text-primary">{p.num}</span>
                 <div>
@@ -100,7 +100,7 @@ export default function AboutSection() {
           ))}
 
           <ScrollReveal direction="scale" className="md:col-span-4">
-            <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-primary/30 bg-primary/5 p-8 text-center">
+            <div className="anime-flip anime-glow flex h-full flex-col items-center justify-center rounded-2xl border border-primary/30 bg-primary/5 p-8 text-center">
               <AnimatedCounter
                 target={20}
                 suffix="+"
@@ -113,7 +113,7 @@ export default function AboutSection() {
           </ScrollReveal>
 
           <ScrollReveal direction="scale" className="md:col-span-4">
-            <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dark-border bg-dark-elevated p-8 text-center">
+            <div className="anime-reveal-scale flex h-full flex-col items-center justify-center rounded-2xl border border-dark-border bg-dark-elevated p-8 text-center">
               <AnimatedCounter
                 target={500}
                 suffix="+"
@@ -129,7 +129,7 @@ export default function AboutSection() {
             <Link
               href="/about"
               data-cursor-hover
-              className="group flex h-full min-h-[160px] flex-col items-center justify-center rounded-2xl border border-dark-border bg-dark-surface p-8 transition-colors hover:border-primary"
+              className="anime-reveal-right anime-shimmer group flex h-full min-h-[160px] flex-col items-center justify-center rounded-2xl border border-dark-border bg-dark-surface p-8 transition-colors hover:border-primary"
             >
               <span className="font-mono text-[10px] uppercase tracking-widest text-primary">
                 Discover

@@ -32,7 +32,7 @@ export default function ContactForm() {
     }`;
 
   return (
-    <ScrollReveal direction="right" className="h-full">
+    <ScrollReveal direction="right" className="anime-reveal-right h-full">
       <AnimatePresence mode="wait">
         {status === "success" ? (
           <motion.div

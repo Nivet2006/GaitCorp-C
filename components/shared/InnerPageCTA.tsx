@@ -36,12 +36,14 @@ export default function InnerPageCTA({
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
             {label}
           </p>
-          <h2 className="max-w-2xl font-bebas text-[clamp(36px,6vw,64px)] leading-[0.95] text-white">
+          <h2 className="anime-split anime-reveal max-w-2xl font-bebas text-[clamp(36px,6vw,64px)] leading-[0.95] text-white">
             {title}
           </h2>
           <SplitLine className="mt-8 max-w-xs" />
         </div>
-        <MagneticButton href={href}>{buttonText}</MagneticButton>
+        <div className="anime-pop anime-magnetic">
+          <MagneticButton href={href}>{buttonText}</MagneticButton>
+        </div>
       </div>
     </section>
   );

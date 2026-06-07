@@ -36,9 +36,9 @@ export default function AchievementsSection() {
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
             Milestones
           </p>
-          <h2 className="max-w-3xl font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+          <h2 className="anime-split max-w-3xl font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
             ACHIEVEMENTS THAT
-            <span className="text-primary"> DEFINE US</span>
+            <span className="anime-wave text-primary"> DEFINE US</span>
           </h2>
         </ScrollReveal>
       </div>
@@ -56,7 +56,7 @@ export default function AchievementsSection() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="flex h-[70vh] w-[85vw] shrink-0 flex-col justify-between rounded-2xl border border-dark-border bg-dark-surface p-10 md:w-[400px]"
+                className="anime-reveal-rotate anime-glow flex h-[70vh] w-[85vw] shrink-0 flex-col justify-between rounded-2xl border border-dark-border bg-dark-surface p-10 md:w-[400px]"
               >
                 <div>
                   <span className="font-mono text-xs text-primary">

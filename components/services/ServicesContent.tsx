@@ -31,18 +31,18 @@ export default function ServicesContent({
           {category}
           {subcategory ? ` · ${subcategory}` : ""}
         </p>
-        <h2 className="mb-12 font-bebas text-[clamp(36px,5vw,64px)] leading-[0.95] text-white">
+        <h2 className="anime-split mb-12 font-bebas text-[clamp(36px,5vw,64px)] leading-[0.95] text-white">
           PRECISION PROTOTYPES,
           <br />
-          <span className="text-primary">PRODUCTION READY</span>
+          <span className="anime-wave text-primary">PRODUCTION READY</span>
         </h2>
 
-        <div className="mb-20 space-y-4">
+        <div className="anime-stagger mb-20 space-y-4">
           {capabilities.map((cap, i) => (
             <ScrollReveal key={cap.num} direction="left" delay={i * 0.08}>
               <MagneticCard
                 tilt={6}
-                className="glass-panel group flex gap-6 rounded-2xl p-6 transition-colors hover:border-primary/30"
+                className="anime-pop anime-magnetic glass-panel group flex gap-6 rounded-2xl p-6 transition-colors hover:border-primary/30"
               >
                 <span className="font-bebas text-5xl text-primary/30 transition-colors group-hover:text-primary">
                   {cap.num}

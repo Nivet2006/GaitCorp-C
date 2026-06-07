@@ -38,7 +38,8 @@ export default function GalleryGrid() {
       <div className="container-gait">
         <div
           ref={featuredRef}
-          className="group relative mb-8 aspect-[21/9] overflow-hidden rounded-2xl border border-dark-border md:mb-12"
+          className="anime-reveal-scale anime-parallax group relative mb-8 aspect-[21/9] overflow-hidden rounded-2xl border border-dark-border md:mb-12"
+          data-anime-depth="0.08"
           onMouseEnter={() => setHovered(-1)}
           onMouseLeave={() => setHovered(null)}
         >
@@ -64,7 +65,7 @@ export default function GalleryGrid() {
           </motion.div>
         </div>
 
-        <div className="grid auto-rows-[200px] gap-4 md:grid-cols-12 md:auto-rows-[180px]">
+        <div className="anime-stagger grid auto-rows-[200px] gap-4 md:grid-cols-12 md:auto-rows-[180px]">
           {placeholders.map((slot, i) => (
             <ScrollReveal
               key={slot.id}
@@ -74,7 +75,7 @@ export default function GalleryGrid() {
             >
               <MagneticCard
                 tilt={8}
-                className="relative h-full min-h-[200px] overflow-hidden rounded-2xl border border-dashed border-dark-border bg-dark-elevated transition-colors hover:border-primary/40"
+                className="anime-pop anime-magnetic relative h-full min-h-[200px] overflow-hidden rounded-2xl border border-dashed border-dark-border bg-dark-elevated transition-colors hover:border-primary/40"
               >
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
                   <span className="font-mono text-[10px] text-primary">
@@ -116,7 +117,7 @@ function ParallaxStrip() {
         {Array.from({ length: 8 }).map((_, i) => (
           <span
             key={i}
-            className="font-bebas text-6xl text-white/[0.04] md:text-8xl"
+            className="anime-float font-bebas text-6xl text-white/[0.04] md:text-8xl"
           >
             GAIT ENGINEERING · GALLERY ·
           </span>

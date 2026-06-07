@@ -91,7 +91,7 @@ function PinnedPanel({
             <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
               {label} · {index}
             </span>
-            <h2 className="mt-4 font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+            <h2 className="anime-split anime-reveal mt-4 font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
               {title}
             </h2>
             {body && (
@@ -108,7 +108,7 @@ function PinnedPanel({
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="border-l-2 border-primary/40 pl-6 font-dm text-white"
+                    className="anime-reveal-left border-l-2 border-primary/40 pl-6 font-dm text-white"
                   >
                     {b}
                   </motion.li>

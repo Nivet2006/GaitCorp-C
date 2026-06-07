@@ -23,7 +23,7 @@ export default function ServicesSection() {
               <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
                 Capabilities
               </p>
-              <h2 className="max-w-2xl font-bebas text-[clamp(40px,6vw,80px)] leading-[0.95] text-white">
+              <h2 className="anime-split max-w-2xl font-bebas text-[clamp(40px,6vw,80px)] leading-[0.95] text-white">
                 SCROLL THROUGH
                 <br />
                 OUR ENGINEERING STACK
@@ -50,7 +50,7 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, rotateY: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="group relative h-[70vh] w-[85vw] shrink-0 overflow-hidden rounded-2xl border border-dark-border md:w-[420px] lg:w-[480px]"
+              className="anime-reveal-rotate anime-magnetic group relative h-[70vh] w-[85vw] shrink-0 overflow-hidden rounded-2xl border border-dark-border md:w-[420px] lg:w-[480px]"
               style={{ perspective: 1000 }}
             >
               <Image
@@ -82,7 +82,7 @@ export default function ServicesSection() {
           <Link
             href="/services"
             data-cursor-hover
-            className="flex h-[70vh] w-[85vw] shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-primary/40 bg-primary/5 transition-colors hover:bg-primary/10 md:w-[320px]"
+            className="anime-pop anime-glow flex h-[70vh] w-[85vw] shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-primary/40 bg-primary/5 transition-colors hover:bg-primary/10 md:w-[320px]"
           >
             <ArrowUpRight size={56} className="mb-6 text-primary" />
             <span className="font-bebas text-4xl text-white">ALL SERVICES</span>

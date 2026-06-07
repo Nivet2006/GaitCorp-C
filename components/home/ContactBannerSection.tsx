@@ -67,7 +67,7 @@ export default function ContactBannerSection() {
           <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
             Partner with us
           </p>
-          <h2 className="mb-8 font-bebas text-[clamp(48px,8vw,88px)] leading-[0.95] text-white">
+          <h2 className="anime-split mb-8 font-bebas text-[clamp(48px,8vw,88px)] leading-[0.95] text-white">
             {words.map((w) => (
               <span
                 key={w}
@@ -92,7 +92,7 @@ export default function ContactBannerSection() {
           </h2>
           <p
             data-word
-            className="mb-10 max-w-md font-dm text-lg text-muted"
+            className="anime-reveal-left mb-10 max-w-md font-dm text-lg text-muted"
           >
             High-quality die casting & SPM partnerships built on measurable outcomes.
           </p>
@@ -102,7 +102,7 @@ export default function ContactBannerSection() {
 
           {/* Decorative laser lines */}
           <motion.div
-            className="absolute -left-4 top-1/2 hidden h-32 w-px bg-primary lg:block"
+            className="anime-glow absolute -left-4 top-1/2 hidden h-32 w-px bg-primary lg:block"
             animate={{ scaleY: [0, 1, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
             style={{ originY: 0.5 }}

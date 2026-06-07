@@ -10,6 +10,7 @@ import ParticleField from "@/components/three/ParticleField";
 import RotatingGear from "@/components/three/RotatingGear";
 import MagneticButton from "@/components/ui/MagneticButton";
 import SplitLine from "@/components/ui/SplitLine";
+import { runAnimeHero } from "@/lib/anime";
 
 const rotatingWords = ["CASTINGS", "SPM SYSTEMS", "PRECISION", "INNOVATION"];
 
@@ -48,11 +49,29 @@ export default function HeroSection() {
     );
   }, []);
 
+  useEffect(() => {
+    return runAnimeHero(sectionRef.current);
+  }, []);
+
   return (
     <section
       ref={sectionRef}
+      data-anime-hero
       className="relative min-h-[100dvh] overflow-hidden bg-dark-bg"
     >
+      {/* Anime.js floating orbs */}
+      <div
+        data-anime-orb
+        className="pointer-events-none absolute left-[6%] top-[22%] z-[2] h-20 w-20 rounded-full bg-primary/10 blur-xl"
+      />
+      <div
+        data-anime-orb
+        className="pointer-events-none absolute right-[18%] top-[35%] z-[2] h-14 w-14 rounded-full border border-primary/30"
+      />
+      <div
+        data-anime-orb
+        className="pointer-events-none absolute left-[42%] bottom-[30%] z-[2] h-10 w-10 rotate-45 border border-white/10 bg-white/5"
+      />
       {/* Diagonal mesh — not the old left-gradient-on-photo layout */}
       <div
         className="pointer-events-none absolute inset-0 z-[3]"
@@ -85,7 +104,8 @@ export default function HeroSection() {
       {/* Vertical stroke title — old site uses horizontal stacked words */}
       <div className="pointer-events-none absolute right-4 top-1/2 z-[4] hidden -translate-y-1/2 lg:block">
         <p
-          className="font-bebas text-[clamp(120px,15vw,200px)] leading-none text-transparent"
+          data-anime-stroke-title
+          className="anime-glitch font-bebas text-[clamp(120px,15vw,200px)] leading-none text-transparent"
           style={{ WebkitTextStroke: "1px rgba(237,29,36,0.15)" }}
         >
           GAIT
@@ -103,17 +123,24 @@ export default function HeroSection() {
         className="relative z-10 flex min-h-[100dvh] flex-col justify-end px-6 pb-28 pt-24 sm:pt-28 lg:max-w-[50%] lg:justify-center lg:px-16 lg:pb-20 lg:pt-28 xl:px-24"
       >
         <motion.div
+          data-anime-hero-line
           initial={{ width: 0 }}
           animate={{ width: 64 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="mb-8 h-px bg-primary"
+          className="mb-8 h-px origin-left bg-primary"
         />
 
-        <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+        <p
+          data-anime-hero-label
+          className="anime-shimmer mb-4 font-mono text-[10px] uppercase tracking-[0.35em] text-primary"
+        >
           Bangalore · Est. 20+ Years
         </p>
 
-        <h1 className="mb-2 font-bebas text-[clamp(52px,8vw,100px)] leading-[0.95] text-white">
+        <h1
+          data-anime-hero-title
+          className="anime-split mb-2 font-bebas text-[clamp(52px,8vw,100px)] leading-[0.95] text-white"
+        >
           ENGINEERING
         </h1>
         <div className="mb-6 h-[clamp(52px,8vw,100px)] overflow-hidden">
@@ -121,7 +148,8 @@ export default function HeroSection() {
         </div>
 
         <p
-          className="mb-10 max-w-md font-dm text-base leading-relaxed text-muted lg:text-lg"
+          data-anime-hero-subtitle
+          className="anime-reveal-blur mb-10 max-w-md font-dm text-base leading-relaxed text-muted lg:text-lg"
           style={{ borderLeft: "2px solid #ed1d24", paddingLeft: "1.25rem" }}
         >
           Non-ferrous castings & special-purpose machines — engineered with
@@ -130,11 +158,14 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-wrap items-center gap-5">
-          <MagneticButton href="/contact">Start a Project</MagneticButton>
+          <div data-anime-hero-cta>
+            <MagneticButton href="/contact">Start a Project</MagneticButton>
+          </div>
           <Link
             href="/services"
+            data-anime-hero-cta
             data-cursor-hover
-            className="group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white"
+            className="anime-magnetic group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white"
           >
             <span className="h-px w-8 bg-white transition-all group-hover:w-12 group-hover:bg-primary" />
             Capabilities
@@ -144,7 +175,7 @@ export default function HeroSection() {
         <SplitLine className="my-12 max-w-md" />
 
         {/* Glass stat chips — not inline dividers like old site */}
-        <div className="flex flex-wrap gap-3">
+        <div className="anime-stagger flex flex-wrap gap-3">
           {[
             { v: "20+", l: "Years" },
             { v: "500+", l: "Projects" },
@@ -152,10 +183,11 @@ export default function HeroSection() {
           ].map((s, i) => (
             <motion.div
               key={s.l}
+              data-anime-hero-stat
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 + i * 0.12 }}
-              className="rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-md"
+              className="anime-glow rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-md"
             >
               <p className="font-bebas text-3xl text-primary">{s.v}</p>
               <p className="font-mono text-[9px] uppercase tracking-widest text-muted">

@@ -29,10 +29,10 @@ export default function ClientsSection() {
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
               Alliances
             </p>
-            <h2 className="font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
+            <h2 className="anime-split font-bebas text-[clamp(40px,6vw,72px)] leading-[0.95] text-white">
               TRUSTED BY
               <br />
-              INDUSTRY LEADERS
+              <span className="anime-wave text-primary">INDUSTRY LEADERS</span>
             </h2>
             <p className="mt-6 font-dm text-muted">
               Explore our partner constellation — hover each node to reveal the alliance.
@@ -41,17 +41,17 @@ export default function ClientsSection() {
 
           {/* Orbital logo display */}
           <div
-            className="relative mx-auto flex h-[320px] w-[320px] items-center justify-center"
+            className="anime-reveal-scale relative mx-auto flex h-[320px] w-[320px] items-center justify-center"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
             <motion.div
-              className="absolute inset-0 rounded-full border border-dark-border"
+              className="anime-spin absolute inset-0 rounded-full border border-dark-border"
               animate={{ rotate: 360 }}
               transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             />
             <motion.div
-              className="absolute inset-8 rounded-full border border-primary/20"
+              className="anime-spin-reverse absolute inset-8 rounded-full border border-primary/20"
               animate={{ rotate: -360 }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             />
@@ -61,7 +61,7 @@ export default function ClientsSection() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="relative z-10 flex h-32 w-48 items-center justify-center rounded-xl border border-dark-border bg-dark-elevated p-6"
+                className="anime-glow relative z-10 flex h-32 w-48 items-center justify-center rounded-xl border border-dark-border bg-dark-elevated p-6"
               >
                 <Image
                   src={clients[active % clients.length].src}
@@ -83,7 +83,7 @@ export default function ClientsSection() {
                   type="button"
                   onMouseEnter={() => setActive(i % clients.length)}
                   onFocus={() => setActive(i % clients.length)}
-                  className="absolute flex h-14 w-14 items-center justify-center rounded-full border border-dark-border bg-dark-bg transition-all hover:scale-110 hover:border-primary"
+                  className="anime-pop anime-magnetic absolute flex h-14 w-14 items-center justify-center rounded-full border border-dark-border bg-dark-bg transition-all hover:scale-110 hover:border-primary"
                   style={{
                     left: `calc(50% + ${x}px - 28px)`,
                     top: `calc(50% + ${y}px - 28px)`,

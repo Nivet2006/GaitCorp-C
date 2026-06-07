@@ -39,18 +39,18 @@ export default function WhoWeAreSection() {
           <span className="mx-3 text-primary">/</span>
           <span className="text-primary">About</span>
         </p>
-        <h1 className="font-bebas text-[clamp(72px,14vw,180px)] leading-[0.85] text-white">
+        <h1 className="anime-split font-bebas text-[clamp(72px,14vw,180px)] leading-[0.85] text-white">
           WHO
           <br />
-          <span className="text-stroke">WE</span>
+          <span className="anime-glitch text-stroke">WE</span>
           <br />
-          <span className="text-primary">ARE</span>
+          <span className="anime-wave text-primary">ARE</span>
         </h1>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 max-w-2xl font-dm text-lg text-muted"
+          className="anime-reveal-blur mt-8 max-w-2xl font-dm text-lg text-muted"
         >
           Driven by experience, defined by precision — two decades of castings &
           SPM excellence from Bangalore.

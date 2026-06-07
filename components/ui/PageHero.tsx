@@ -54,7 +54,7 @@ export default function PageHero({
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.8 }}
-          className="font-bebas text-[clamp(56px,10vw,120px)] leading-[0.9] text-white"
+          className="anime-split font-bebas text-[clamp(56px,10vw,120px)] leading-[0.9] text-white"
         >
           {title}
         </motion.h1>

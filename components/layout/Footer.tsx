@@ -23,7 +23,7 @@ export default function Footer() {
         viewport={{ once: false }}
         transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
       >
-        GAIT ENGINEERING
+        GAIT ENGINEERINS
       </motion.div>
 
       <div className="container-gait relative py-20">
@@ -36,17 +36,17 @@ export default function Footer() {
               height={94}
               className="mb-6 h-24 w-auto"
             />
-            <p className="max-w-xs font-dm text-sm text-muted">
+            <p className="anime-reveal-left max-w-xs font-dm text-sm text-muted">
               Precision non-ferrous castings & SPM — Bangalore, India.
             </p>
           </div>
 
-          <nav className="flex flex-wrap gap-x-12 gap-y-4">
+          <nav className="anime-stagger flex flex-wrap gap-x-12 gap-y-4">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="group flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-primary"
+                className="anime-reveal anime-magnetic group flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-primary"
               >
                 {link.label}
                 <ArrowUpRight
