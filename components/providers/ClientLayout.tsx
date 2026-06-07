@@ -9,6 +9,7 @@ import LenisProvider from "@/components/providers/LenisProvider";
 import GSAPProvider from "@/components/providers/GSAPProvider";
 import AnimeProvider from "@/components/providers/AnimeProvider";
 import AnimeDecorations from "@/components/ui/AnimeDecorations";
+import SplashGate from "@/components/providers/SplashGate";
 
 export default function ClientLayout({
   children,
@@ -16,18 +17,20 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   return (
-    <LenisProvider>
-      <GSAPProvider>
-        <AnimeProvider>
-          <AnimeDecorations />
-          <CursorFollower />
-          <ScrollProgress />
-          <BackToTop />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </AnimeProvider>
-      </GSAPProvider>
-    </LenisProvider>
+    <SplashGate>
+      <LenisProvider>
+        <GSAPProvider>
+          <AnimeProvider>
+            <AnimeDecorations />
+            <CursorFollower />
+            <ScrollProgress />
+            <BackToTop />
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </AnimeProvider>
+        </GSAPProvider>
+      </LenisProvider>
+    </SplashGate>
   );
 }
