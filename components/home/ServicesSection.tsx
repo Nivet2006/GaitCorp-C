@@ -24,9 +24,9 @@ export default function ServicesSection() {
                 Capabilities
               </p>
               <h2 className="anime-split max-w-2xl font-bebas text-[clamp(40px,6vw,80px)] leading-[0.95] text-white">
-                SCROLL THROUGH
+                ENGINEERING EXPERTISE
                 <br />
-                OUR ENGINEERING STACK
+                & TECHNICAL SERVICES
               </h2>
             </div>
             <p className="max-w-sm font-dm text-sm text-muted">

@@ -85,15 +85,15 @@ export default function Footer() {
             whileTap="tap"
           >
             <motion.span
-              className="pointer-events-none absolute inset-0 -inset-x-4 -inset-y-2 rounded-full blur-xl"
+              className="pointer-events-none absolute inset-0 -inset-x-8 -inset-y-4 rounded-full blur-2xl"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%)",
               }}
               variants={{
-                rest: { opacity: 0, scale: 0.8 },
-                hover: { opacity: 1, scale: 1.15 },
-                tap: { opacity: 0.7, scale: 1 },
+                rest: { opacity: 0.5, scale: 1 },
+                hover: { opacity: 1, scale: 1.2 },
+                tap: { opacity: 0.8, scale: 1.05 },
               }}
               transition={{ type: "spring", stiffness: 300, damping: 22 }}
             />
@@ -101,12 +101,12 @@ export default function Footer() {
               variants={{
                 rest: {
                   scale: 1,
-                  filter: "drop-shadow(0 0 0px rgba(255,255,255,0))",
+                  filter: "drop-shadow(0 0 8px rgba(255,255,255,0.2))",
                 },
                 hover: {
                   scale: 1.05,
                   filter:
-                    "drop-shadow(0 0 6px rgba(255,255,255,0.9)) drop-shadow(0 0 18px rgba(255,255,255,0.55)) drop-shadow(0 0 32px rgba(255,255,255,0.25))",
+                    "drop-shadow(0 0 10px rgba(255,255,255,0.95)) drop-shadow(0 0 20px rgba(255,255,255,0.6)) drop-shadow(0 0 35px rgba(255,255,255,0.3))",
                 },
                 tap: { scale: 0.98 },
               }}
