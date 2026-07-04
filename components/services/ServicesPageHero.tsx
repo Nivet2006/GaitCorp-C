@@ -25,7 +25,7 @@ export default function ServicesPageHero() {
       >
         <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.35em] text-muted">
           <Link href="/" className="hover:text-primary">
-            Index
+            Home
           </Link>
           <span className="mx-3 text-primary">/</span>
           <span className="text-primary">Capabilities</span>

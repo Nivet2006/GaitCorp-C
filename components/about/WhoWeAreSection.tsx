@@ -34,7 +34,7 @@ export default function WhoWeAreSection() {
       >
         <p className="mb-8 font-mono text-[10px] uppercase tracking-[0.35em] text-white/60">
           <Link href="/" className="hover:text-primary">
-            Index
+            Home
           </Link>
           <span className="mx-3 text-primary">/</span>
           <span className="text-primary">About</span>
