@@ -38,7 +38,7 @@ export default function Navbar() {
       >
         <Link href="/" className="block">
           <motion.div
-            className="relative flex items-center overflow-hidden rounded-2xl border border-white/10 bg-dark-bg/90 px-3 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+            className="relative flex items-center overflow-hidden"
             initial="rest"
             whileHover="hover"
             whileTap="tap"
@@ -46,34 +46,15 @@ export default function Navbar() {
               rest: {
                 scale: 1,
                 y: 0,
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
               },
               hover: {
                 scale: 1.05,
                 y: -3,
-                boxShadow:
-                  "0 14px 40px rgba(237, 29, 36, 0.18), 0 8px 32px rgba(0, 0, 0, 0.55)",
               },
               tap: { scale: 0.98, y: 0 },
             }}
             transition={{ type: "spring", stiffness: 380, damping: 24 }}
           >
-            <motion.div
-              className="pointer-events-none absolute inset-0 rounded-2xl border border-transparent"
-              variants={{
-                rest: { borderColor: "rgba(255, 255, 255, 0.1)" },
-                hover: { borderColor: "rgba(237, 29, 36, 0.5)" },
-              }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.div
-              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-primary/25 to-transparent"
-              variants={{
-                rest: { x: "-120%", opacity: 0 },
-                hover: { x: "120%", opacity: 1 },
-              }}
-              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            />
             <motion.div
               variants={{
                 rest: { scale: 1 },
@@ -85,9 +66,9 @@ export default function Navbar() {
               <Image
                 src="/no-bg-logo-main.png"
                 alt="GAIT Engineers"
-                width={120}
-                height={70}
-                className="relative z-10 h-14 w-auto"
+                width={200}
+                height={110}
+                className="relative z-10 h-20 w-auto sm:h-24"
                 priority
               />
             </motion.div>
