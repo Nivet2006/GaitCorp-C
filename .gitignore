@@ -31,3 +31,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# README files
+[Rr][Ee][Aa][Dd][Mm][Ee]*
+
