@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "lenis/react";
 import HeroSection from "@/components/home/HeroSection";
 import MarqueeStrip from "@/components/home/MarqueeStrip";
 import AboutSection from "@/components/home/AboutSection";
@@ -15,48 +14,105 @@ import InnerPageCTA from "@/components/shared/InnerPageCTA";
 import { pageTransition } from "@/lib/animations";
 
 export default function HomePage() {
-  useEffect(() => {
-    // Register ScrollTrigger to ensure it is ready
-    gsap.registerPlugin(ScrollTrigger);
+  const lenis = useLenis();
+  const activeIndexRef = useRef(0);
+  const isScrollingRef = useRef(false);
 
-    // Get all sections we want to snap to
-    const sections = gsap.utils.toArray<HTMLElement>(".snap-section");
+  useEffect(() => {
+    if (!lenis) return;
+
+    // Get all sections to snap to
+    const sections = Array.from(document.querySelectorAll(".snap-section")) as HTMLElement[];
     if (sections.length === 0) return;
 
-    // Create a ScrollTrigger that listens to body scroll and snaps
-    const snapTrigger = ScrollTrigger.create({
-      trigger: "body",
-      start: "top top",
-      end: "bottom bottom",
-      snap: {
-        snapTo: (value) => {
-          const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const currentScroll = value * scrollHeight;
+    // Sync index with current scroll position on mount or manual scroll
+    const syncIndex = () => {
+      if (isScrollingRef.current) return;
+      const scrollPos = window.scrollY;
+      let closestIndex = 0;
+      let minDiff = Infinity;
 
-          let closest = 0;
-          let minDiff = Infinity;
+      sections.forEach((section, index) => {
+        const offset = (section as HTMLElement).offsetTop;
+        const diff = Math.abs(scrollPos - offset);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIndex = index;
+        }
+      });
+      activeIndexRef.current = closestIndex;
+    };
 
-          sections.forEach((section) => {
-            const sectionScroll = section.offsetTop;
-            const diff = Math.abs(currentScroll - sectionScroll);
-            if (diff < minDiff) {
-              minDiff = diff;
-              closest = sectionScroll / scrollHeight;
-            }
-          });
+    lenis.on("scroll", syncIndex);
 
-          return closest;
-        },
-        duration: { min: 0.2, max: 0.6 },
-        delay: 0.1,
-        ease: "power2.out",
-      },
-    });
+    const handleScrollTo = (direction: number) => {
+      let nextIndex = activeIndexRef.current + direction;
+      if (nextIndex >= 0 && nextIndex < sections.length) {
+        isScrollingRef.current = true;
+        activeIndexRef.current = nextIndex;
+
+        lenis.scrollTo(sections[nextIndex], {
+          immediate: false,
+          duration: 1.2,
+          lock: true,
+          onComplete: () => {
+            // Add a small delay to prevent rapid scroll triggers
+            setTimeout(() => {
+              isScrollingRef.current = false;
+            }, 100);
+          },
+        });
+      }
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 10) return; // Ignore micro-scrolls
+      e.preventDefault();
+
+      if (isScrollingRef.current) return;
+
+      const direction = e.deltaY > 0 ? 1 : -1;
+      handleScrollTo(direction);
+    };
+
+    // Mobile Swipe Snapping
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isScrollingRef.current) {
+        e.preventDefault();
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isScrollingRef.current) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffY = touchStartY - touchEndY;
+
+      if (Math.abs(diffY) > 50) {
+        const direction = diffY > 0 ? 1 : -1;
+        handleScrollTo(direction);
+      }
+    };
+
+    // Event Listeners
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     return () => {
-      snapTrigger.kill();
+      lenis.off("scroll", syncIndex);
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, []);
+  }, [lenis]);
 
   return (
     <motion.div {...pageTransition}>
@@ -88,4 +144,5 @@ export default function HomePage() {
     </motion.div>
   );
 }
+
 
