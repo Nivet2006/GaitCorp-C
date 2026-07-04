@@ -19,6 +19,7 @@ const iconMap: Record<string, typeof Home> = {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -28,13 +29,25 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <motion.div
         className="fixed left-4 top-4 z-50 sm:left-6 sm:top-6 lg:left-10 lg:top-8"
         initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ 
+          opacity: scrolled ? 0 : 1, 
+          y: scrolled ? -30 : 0 
+        }}
+        style={{ pointerEvents: scrolled ? "none" : "auto" }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
         <Link href="/" className="block">
           <motion.div
