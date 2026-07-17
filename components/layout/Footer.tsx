@@ -23,7 +23,7 @@ export default function Footer() {
         viewport={{ once: false }}
         transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
       >
-        GAIT ENGINEERINS
+        GAIT ENGINEERS
       </motion.div>
 
       <div className="container-gait relative py-20">
