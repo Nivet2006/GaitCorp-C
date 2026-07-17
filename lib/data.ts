@@ -44,10 +44,16 @@ export const services = [
   },
 ];
 
-export const clients = Array.from({ length: 7 }, (_, i) => ({
-  src: `/images/clients/client${i + 1}.png`,
-  alt: `Client ${i + 1}`,
-}));
+export const clients = [
+  ...Array.from({ length: 8 }, (_, i) => ({
+    src: `/images/clients/client${i + 1}.png`,
+    alt: `Client ${i + 1}`,
+  })),
+  {
+    src: `/images/clients/client9.svg`,
+    alt: `Client 9`,
+  }
+];
 
 export const testimonials = [
   {

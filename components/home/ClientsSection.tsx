@@ -11,7 +11,7 @@ const AUTO_ADVANCE_MS = 2000;
 export default function ClientsSection() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const doubled = [...clients, ...clients];
+
 
   useEffect(() => {
     if (paused) return;
@@ -72,8 +72,8 @@ export default function ClientsSection() {
                 />
               </motion.div>
             </AnimatePresence>
-            {doubled.slice(0, 7).map((client, i) => {
-              const angle = (i / 7) * Math.PI * 2 - Math.PI / 2;
+            {clients.map((client, i) => {
+              const angle = (i / clients.length) * Math.PI * 2 - Math.PI / 2;
               const r = 140;
               const x = Math.cos(angle) * r;
               const y = Math.sin(angle) * r;
