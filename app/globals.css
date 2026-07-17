@@ -20,7 +20,7 @@
   html {
     @apply scroll-smooth;
     scrollbar-width: thin;
-    scrollbar-color: #ed1d24 #111111;
+    scrollbar-color: #14336c #111111;
   }
 
   html.cursor-custom {
@@ -60,7 +60,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #ed1d24;
+    background: #14336c;
     border-radius: 3px;
   }
 }

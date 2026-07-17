@@ -113,11 +113,11 @@ export default function AboutSection() {
           </ScrollReveal>
 
           <ScrollReveal direction="scale" className="md:col-span-4">
-            <div className="anime-reveal-scale flex h-full flex-col items-center justify-center rounded-2xl border border-dark-border bg-dark-elevated p-8 text-center">
+            <div className="anime-reveal-scale flex h-full flex-col items-center justify-center rounded-2xl border border-secondary/30 bg-secondary/5 p-8 text-center">
               <AnimatedCounter
                 target={500}
                 suffix="+"
-                className="font-bebas text-7xl text-white"
+                className="font-bebas text-7xl text-secondary"
               />
               <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-muted">
                 Projects delivered

@@ -7,6 +7,8 @@ const config: Config = {
       colors: {
         primary: "#ed1d24",
         "primary-dark": "#c8161c",
+        secondary: "#14336c",
+        "secondary-dark": "#0e2550",
         "dark-bg": "#0a0a0a",
         "dark-surface": "#111111",
         "dark-elevated": "#1a1a1a",

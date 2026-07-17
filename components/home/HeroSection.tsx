@@ -62,15 +62,15 @@ export default function HeroSection() {
       {/* Anime.js floating orbs */}
       <div
         data-anime-orb
-        className="pointer-events-none absolute left-[6%] top-[22%] z-[2] h-20 w-20 rounded-full bg-primary/10 blur-xl"
+        className="pointer-events-none absolute left-[6%] top-[22%] z-[2] h-32 w-32 rounded-full bg-secondary/15 blur-2xl"
       />
       <div
         data-anime-orb
-        className="pointer-events-none absolute right-[18%] top-[35%] z-[2] h-14 w-14 rounded-full border border-primary/30"
+        className="pointer-events-none absolute right-[18%] top-[35%] z-[2] h-14 w-14 rounded-full border border-secondary/40"
       />
       <div
         data-anime-orb
-        className="pointer-events-none absolute left-[42%] bottom-[30%] z-[2] h-10 w-10 rotate-45 border border-white/10 bg-white/5"
+        className="pointer-events-none absolute left-[42%] bottom-[30%] z-[2] h-10 w-10 rotate-45 border border-primary/20 bg-primary/5"
       />
       {/* Diagonal mesh — not the old left-gradient-on-photo layout */}
       <div
@@ -78,7 +78,7 @@ export default function HeroSection() {
         style={{
           backgroundImage: `
             linear-gradient(105deg, #0a0a0a 0%, #0a0a0a 42%, transparent 42%),
-            radial-gradient(ellipse at 80% 20%, rgba(237,29,36,0.12) 0%, transparent 50%)
+            radial-gradient(ellipse at 80% 20%, rgba(20,51,108,0.25) 0%, rgba(237,29,36,0.1) 50%, transparent 70%)
           `,
         }}
       />
