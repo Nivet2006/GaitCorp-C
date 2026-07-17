@@ -240,7 +240,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               Bangalore · India
             </p>
             <p data-splash-status className="mt-2 opacity-0">
-              Est. 20+ Years
+              Est. 30+ Years
             </p>
           </div>
 

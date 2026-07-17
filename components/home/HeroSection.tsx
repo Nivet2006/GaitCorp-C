@@ -134,7 +134,7 @@ export default function HeroSection() {
           data-anime-hero-label
           className="anime-shimmer mb-4 font-mono text-[10px] uppercase tracking-[0.35em] text-primary"
         >
-          Bangalore · Est. 20+ Years
+          Bangalore · Est. 30+ Years
         </p>
 
         <h1

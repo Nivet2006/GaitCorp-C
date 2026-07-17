@@ -27,7 +27,7 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "GAIT Engineering Works | Castings & SPM Solutions",
   description:
-    "Bangalore-based industrial engineering firm specialising in Non-Ferrous Castings and Special Purpose Machines. 20+ years of precision engineering excellence.",
+    "Bangalore-based industrial engineering firm specialising in Non-Ferrous Castings and Special Purpose Machines. 30+ years of precision engineering excellence.",
 };
 
 export default function RootLayout({

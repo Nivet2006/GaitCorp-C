@@ -43,7 +43,7 @@ export default function FounderSection() {
               </p>
               <ul className="mt-10 space-y-4">
                 {[
-                  "20+ years of industry expertise",
+                  "30+ years of industry expertise",
                   "Specialist in Castings & SPM Solutions",
                 ].map((item, i) => (
                   <motion.li
