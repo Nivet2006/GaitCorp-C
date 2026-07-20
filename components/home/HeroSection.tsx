@@ -177,7 +177,7 @@ export default function HeroSection() {
         {/* Glass stat chips — not inline dividers like old site */}
         <div className="anime-stagger flex flex-wrap gap-3">
           {[
-            { v: "20+", l: "Years" },
+            { v: "30+", l: "Years" },
             { v: "500+", l: "Projects" },
             { v: "100%", l: "On-Time" },
           ].map((s, i) => (
