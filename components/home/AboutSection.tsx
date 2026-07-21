@@ -102,7 +102,7 @@ export default function AboutSection() {
           <ScrollReveal direction="scale" className="md:col-span-4">
             <div className="anime-flip anime-glow flex h-full flex-col items-center justify-center rounded-2xl border border-primary/30 bg-primary/5 p-8 text-center">
               <AnimatedCounter
-                target={20}
+                target={30}
                 suffix="+"
                 className="font-bebas text-7xl text-primary"
               />
